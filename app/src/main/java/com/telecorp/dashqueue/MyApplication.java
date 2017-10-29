@@ -3,7 +3,6 @@ package com.telecorp.dashqueue;
 import android.app.Activity;
 import android.app.Application;
 
-import com.facebook.drawee.backends.pipeline.Fresco;
 import com.telecorp.dashqueue.di.AppInjector;
 
 import javax.inject.Inject;
@@ -22,7 +21,6 @@ public class MyApplication extends Application implements HasActivityInjector{
     @Override
     public void onCreate() {
         super.onCreate();
-        Fresco.initialize(this);
         AppInjector.init(this);
     }
 

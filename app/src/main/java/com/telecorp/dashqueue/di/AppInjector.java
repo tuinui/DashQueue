@@ -89,7 +89,7 @@ public class AppInjector {
                                 @Override
                                 public void onFragmentCreated(FragmentManager fm, Fragment f,
                                                               Bundle savedInstanceState) {
-                                    if (f instanceof Injectable) {
+                                    if (f instanceof HasSupportFragmentInjector || f instanceof Injectable) {
                                         AndroidSupportInjection.inject(f);
                                     }
                                 }

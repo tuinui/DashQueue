@@ -4,6 +4,7 @@ import android.support.annotation.Nullable;
 
 import com.telecorp.dashqueue.api.TelecorpApiInterface;
 import com.telecorp.dashqueue.api.model.HospitalItem;
+import com.telecorp.dashqueue.utils.SafeCollectionUtils;
 import com.telecorp.dashqueue.utils.schedulers.BaseSchedulerProvider;
 
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ public class MainActivityPresenter implements MainActivityContract.Presenter {
 
     @Nullable
     private MainActivityContract.View mView;
+    private ArrayList<HospitalItem> mDatas;
 
     @Inject
     public MainActivityPresenter(TelecorpApiInterface mApi, BaseSchedulerProvider schedulerProvider) {
@@ -37,6 +39,9 @@ public class MainActivityPresenter implements MainActivityContract.Presenter {
     @Override
     public void subscribe(MainActivityContract.View view) {
         mView = view;
+        if (!SafeCollectionUtils.isEmpty(mDatas)) {
+            loadData();
+        }
     }
 
     @Override
@@ -58,6 +63,7 @@ public class MainActivityPresenter implements MainActivityContract.Presenter {
                     public void accept(ArrayList<HospitalItem> hospitalItems) throws Exception {
                         if (null != mView) {
                             mView.showLoading(false);
+                            mDatas = hospitalItems;
                             mView.bindData(hospitalItems);
                         }
                     }

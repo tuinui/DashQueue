@@ -1,32 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="16dp"
-    fresco:cardElevation="8dp"
-    xmlns:fresco="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    app:cardElevation="8dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <com.facebook.drawee.view.SimpleDraweeView
-            android:layout_width="match_parent"
-            android:id="@+id/sdv_hospital_item_image"
-            android:layout_height="130dp" />
-
-        <TextView
+        <com.telecorp.dashqueue.custom.imageloader.ImageLoaderView
+            android:id="@+id/imageloaderview_hospital_item_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:ratioHeight="9"
+            app:ratioWidth="16" />
+
+        <TextView
             android:id="@+id/textview_hospital_item_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:background="@android:color/black"
             android:padding="8dp"
-            android:textColor="@android:color/white"
+            android:text="hello"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:text="hello" />
+            android:textColor="@android:color/white" />
     </LinearLayout>
 
 </android.support.v7.widget.CardView>
