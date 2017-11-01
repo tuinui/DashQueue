@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/appbarlayout_main"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/AppTheme.Toolbar"
+
+        app:contentInsetStartWithNavigation="0dp"
+        android:paddingLeft="0dp"
+        app:layout_scrollFlags="scroll|enterAlways|snap"
+        app:popupTheme="@style/AppTheme.PopupOverlay"
+        app:subtitleTextColor="@android:color/white"
+        app:titleTextColor="@android:color/white"
+        tools:title="hello">
+
+
+
+
+    </android.support.v7.widget.Toolbar>
+
+
+
+
+</android.support.design.widget.AppBarLayout>

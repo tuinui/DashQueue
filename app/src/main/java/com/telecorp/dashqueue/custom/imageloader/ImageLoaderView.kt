@@ -69,18 +69,7 @@ class ImageLoaderView : FrameLayout {
         invalidate()
     }
 
-    //    private fun init(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) {
-//        val array = context.obtainStyledAttributes(attrs, R.styleable.Ratio, defStyleAttr, defStyleRes)
-//
-//        try {
-//            mWidthRatio = array.getInteger(R.styleable.Ratio_ratioWidth, -1).toFloat()
-//            mHeightRatio = array.getInteger(R.styleable.Ratio_ratioHeight, -1).toFloat()
-//        } finally {
-//            array.recycle()
-//        }
-//        invalidate()
-//    }
-    fun loadImage(url: String, @DrawableRes drawableRes: Int, crop: Boolean? = null) {
+    fun loadImage(url: String?, @DrawableRes drawableRes: Int, crop: Boolean? = null) {
         loadImage(url, ContextCompat.getDrawable(context, drawableRes), crop)
     }
 
@@ -89,7 +78,7 @@ class ImageLoaderView : FrameLayout {
     }
 
     @JvmOverloads
-    fun loadImage(url: String, drawable: Drawable? = null, crop: Boolean? = null) {
+    fun loadImage(url: String?, drawable: Drawable? = null, crop: Boolean? = null) {
         loadImage(object : UrlWithRetry {
             override val url: String?
                 get() = url

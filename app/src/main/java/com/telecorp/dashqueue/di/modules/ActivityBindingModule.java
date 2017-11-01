@@ -1,6 +1,7 @@
 package com.telecorp.dashqueue.di.modules;
 
 import com.telecorp.dashqueue.di.scope.ActivityScope;
+import com.telecorp.dashqueue.ui.loginauthen.LoginAuthenActivity;
 import com.telecorp.dashqueue.ui.main.MainActivity;
 import com.telecorp.dashqueue.ui.main.MainActivityModule;
 
@@ -18,6 +19,10 @@ import dagger.android.ContributesAndroidInjector;
 public abstract class ActivityBindingModule {
     @ActivityScope
     @ContributesAndroidInjector(modules = MainActivityModule.class)
-    abstract MainActivity tasksActivity();
+    abstract MainActivity provideMainActivity();
+
+    @ActivityScope
+    @ContributesAndroidInjector
+    abstract LoginAuthenActivity provideLoginAuthenActivity();
 
 }

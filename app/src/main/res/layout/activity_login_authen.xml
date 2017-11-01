@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <include layout="@layout/view_main_appbar" />
+
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
+
+            <com.telecorp.dashqueue.custom.imageloader.ImageLoaderView
+                android:id="@+id/imageloaderview_login_authen_hospital_image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="20dp"
+                app:ratioHeight="1"
+                app:ratioWidth="2" />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/edittext_login_authen_phone_no"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:hint="@string/phone_no"
+                app:met_floatingLabel="normal"
+                app:met_floatingLabelText="@string/phone_no"
+                app:met_textColorHint="@color/colorAccent" />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/edittext_login_authen_phone_queue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:hint="@string/hn_queue"
+                app:met_floatingLabel="normal"
+                app:met_floatingLabelText="@string/phone_no"
+                app:met_textColorHint="@color/colorAccent" />
+
+            <android.support.v4.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="8dp" />
+
+            <com.telecorp.dashqueue.custom.SafeSwitch
+                android:id="@+id/switch_login_authen_remember_me"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:drawablePadding="8dp"
+                android:paddingRight="8dp"
+                android:text="@string/remember_me"
+                app:switchPadding="8dp" />
+
+            <android.support.v4.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="16dp" />
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/button_login_authen_submit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/submit"
+                android:textAllCaps="false" />
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+
+</LinearLayout>

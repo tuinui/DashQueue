@@ -7,12 +7,16 @@
     android:orientation="vertical"
     tools:context="com.telecorp.dashqueue.ui.main.MainActivity">
 
+    <include layout="@layout/view_main_appbar" />
+
+
     <android.support.v7.widget.SearchView
         android:id="@+id/searchview_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:queryHint="@android:string/search_go"
-        app:defaultQueryHint="@android:string/search_go" />
+        app:defaultQueryHint="@android:string/search_go"
+        app:iconifiedByDefault="false"
+        app:queryHint="@android:string/search_go" />
 
     <com.telecorp.dashqueue.custom.CustomSwipeRefreshLayout
         android:id="@+id/swiperefreshlayout_main"
