@@ -9,7 +9,7 @@ import android.support.test.runner.AndroidJUnit4;
 
 import com.telecorp.dashqueue.api.model.HospitalItem;
 import com.telecorp.dashqueue.ui.main.MainActivity;
-import com.telecorp.dashqueue.ui.main.contract.MainActivityPresenter;
+import com.telecorp.dashqueue.ui.main.hospitallist.contract.HospitalListPresenter;
 import com.telecorp.dashqueue.utils.EspressoIdlingResource;
 import com.telecorp.dashqueue.utils.schedulers.ImmediateSchedulerProvider;
 
@@ -45,7 +45,7 @@ public class MainActivityScreenTest {
     private static ArrayList<HospitalItem> DATAS;
 
 
-    private MainActivityPresenter mPresenter;
+    private HospitalListPresenter mPresenter;
     private ImmediateSchedulerProvider mSchedulerProvider;
 
     @Rule
@@ -75,9 +75,9 @@ public class MainActivityScreenTest {
     public void clickAddTaskButton_opensAddTaskUi() {
         // Click on the add task button
 
-        onView(withId(R.id.swiperefreshlayout_main)).perform(ViewActions.swipeDown());
+        onView(withId(R.id.swiperefreshlayout_hospital_list)).perform(ViewActions.swipeDown());
 
         // Check if the add task screen is displayed
-        onView(withId(R.id.swiperefreshlayout_main)).check(matches(isDisplayed()));
+        onView(withId(R.id.swiperefreshlayout_hospital_list)).check(matches(isDisplayed()));
     }
 }

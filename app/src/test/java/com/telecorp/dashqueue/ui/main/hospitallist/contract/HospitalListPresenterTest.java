@@ -1,4 +1,4 @@
-package com.telecorp.dashqueue.ui.main.contract;
+package com.telecorp.dashqueue.ui.main.hospitallist.contract;
 
 import com.telecorp.dashqueue.api.TelecorpApiInterface;
 import com.telecorp.dashqueue.api.model.HospitalItem;
@@ -23,7 +23,7 @@ import static org.mockito.Mockito.when;
  * Created by Saran on 14/10/2560.
  */
 
-public class MainActivityPresenterTest {
+public class HospitalListPresenterTest {
 
 
     private static ArrayList<HospitalItem> DATAS;
@@ -34,7 +34,7 @@ public class MainActivityPresenterTest {
 
 
     @Mock
-    private MainActivityContract.View mView;
+    private HospitalListContract.View mView;
 
     /**
      * {@link ArgumentCaptor} is a powerful Mockito API to capture argument values and use them to
@@ -42,7 +42,7 @@ public class MainActivityPresenterTest {
      */
     @Captor
     private ArgumentCaptor<Consumer<ArrayList<HospitalItem>>> mLoadCompleteCallbackCaptor;
-    private MainActivityPresenter mPresenter;
+    private HospitalListPresenter mPresenter;
     private ImmediateSchedulerProvider mSchedulerProvider;
 
 
@@ -53,7 +53,7 @@ public class MainActivityPresenterTest {
         MockitoAnnotations.initMocks(this);
         mSchedulerProvider = new ImmediateSchedulerProvider();
         // Get a reference to the class under test
-        mPresenter = new MainActivityPresenter(mApi,mSchedulerProvider);
+        mPresenter = new HospitalListPresenter(mApi,mSchedulerProvider);
         mPresenter.subscribe(mView);
 
 

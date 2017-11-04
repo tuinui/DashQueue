@@ -61,36 +61,22 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxandroid:' + rootProject.rxAndroidVersion
     implementation 'io.reactivex.rxjava2:rxjava:' + rootProject.rxJavaVersion
 
-    implementation 'com.github.bumptech.glide:glide:'+rootProject.glideVersion
-    kapt 'com.github.bumptech.glide:compiler:'+rootProject.glideVersion
+    implementation 'com.github.bumptech.glide:glide:' + rootProject.glideVersion
+    kapt 'com.github.bumptech.glide:compiler:' + rootProject.glideVersion
     implementation 'com.jakewharton:butterknife:' + rootProject.butterKnifeVersion
     kapt 'com.jakewharton:butterknife-compiler:' + rootProject.butterKnifeVersion
+    implementation 'com.google.firebase:firebase-messaging:' + rootProject.firebaseVersion
+    implementation 'com.google.firebase:firebase-core:' + rootProject.firebaseVersion
 
-    implementation 'com.marcinmoskala.activitystarter:activitystarter-kotlin:1.00'
     implementation 'com.marcinmoskala.activitystarter:activitystarter:1.00'
+    implementation 'com.marcinmoskala.activitystarter:activitystarter-kotlin:1.00'
     kapt 'com.marcinmoskala.activitystarter:activitystarter-compiler:1.00'
 
     implementation "com.marcinmoskala.PreferenceHolder:preferenceholder:1.5"
 
 
     implementation 'com.rengwuxian.materialedittext:library:2.1.4'
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    implementation 'info.hoang8f:android-segmented:1.0.6'
 
     // Dependencies for local unit tests
     testCompile 'junit:junit:' + rootProject.junitVersion
@@ -105,7 +91,7 @@ dependencies {
     // Optional -- Hamcrest library
     androidTestCompile 'org.hamcrest:hamcrest-library:' + rootProject.hamcrestVersion
     // Optional -- UI testing with Espresso
-    androidTestCompile('com.android.support.test.espresso:espresso-core:'+rootProject.espressoCoreVersion, {
+    androidTestCompile('com.android.support.test.espresso:espresso-core:' + rootProject.espressoCoreVersion, {
         exclude group: 'com.android.support', module: 'support-annotations'
         exclude group: 'com.google.code.findbugs'
     })
@@ -115,6 +101,6 @@ dependencies {
 //    androidTestCompile 'com.android.support.test.uiautomator:uiautomator-v18:2.1.2'
 
 
-
-
 }
+
+apply plugin: 'com.google.gms.google-services'

@@ -1,4 +1,4 @@
-package com.telecorp.dashqueue.ui.main.recycler;
+package com.telecorp.dashqueue.ui.main.hospitallist.recycler;
 
 import android.support.v7.util.DiffUtil;
 

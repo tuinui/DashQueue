@@ -1,12 +1,12 @@
-package com.telecorp.dashqueue.di.modules;
+package com.telecorp.dashqueue.di.modules
 
-import com.telecorp.dashqueue.di.scope.ActivityScope;
-import com.telecorp.dashqueue.ui.loginauthen.LoginAuthenActivity;
-import com.telecorp.dashqueue.ui.main.MainActivity;
-import com.telecorp.dashqueue.ui.main.MainActivityModule;
+import com.telecorp.dashqueue.di.scope.ActivityScope
+import com.telecorp.dashqueue.ui.loginauthen.LoginAuthenActivity
+import com.telecorp.dashqueue.ui.main.MainActivity
+import com.telecorp.dashqueue.ui.main.MainActivityModule
 
-import dagger.Module;
-import dagger.android.ContributesAndroidInjector;
+import dagger.Module
+import dagger.android.ContributesAndroidInjector
 
 /**
  * We want Dagger.Android to create a Subcomponent which has a parent Component of whichever module ActivityBindingModule is on,
@@ -16,13 +16,13 @@ import dagger.android.ContributesAndroidInjector;
  * When Dagger.Android annotation processor runs it will create 4 subcomponents for us.
  */
 @Module
-public abstract class ActivityBindingModule {
+abstract class ActivityBindingModule {
     @ActivityScope
-    @ContributesAndroidInjector(modules = MainActivityModule.class)
-    abstract MainActivity provideMainActivity();
+    @ContributesAndroidInjector(modules = arrayOf(MainActivityModule::class))
+    internal abstract fun provideMainActivity(): MainActivity
 
     @ActivityScope
     @ContributesAndroidInjector
-    abstract LoginAuthenActivity provideLoginAuthenActivity();
+    internal abstract fun provideLoginAuthenActivity(): LoginAuthenActivity
 
 }

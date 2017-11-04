@@ -3,12 +3,13 @@ package com.telecorp.dashqueue.api.model
 import android.os.Parcel
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import com.page365.store365.generic.searchable.SearchableEntity
 
 /**
  * Created by Saran on 13/10/2560.
  */
 
-class HospitalItem : Parcelable {
+class HospitalItem() : SearchableEntity, Parcelable {
     @SerializedName("UID")
     var uid: Long? = null
 
@@ -16,48 +17,57 @@ class HospitalItem : Parcelable {
     var code: String? = null
 
     @SerializedName("title")
-    var title: String? = ""
+    var title: String? = null
 
     @SerializedName("active")
-    var active: String? = ""
+    var active: String? = null
 
     @SerializedName("urlapl")
-    var urlapl: String? = ""
+    var urlapl: String? = null
 
     @SerializedName("ImageLogo")
-    var imageLogo: String? = ""
+    var imageLogo: String? = null
 
     @SerializedName("PathImageLogo")
-    var imageLogoPath: String? = ""
+    var imageLogoPath: String? = null
 
-    constructor()
-
-    private constructor (uid: Long, code: String, title: String, active: String, urlapl: String, imageLogo: String, imageLogoPath: String) {
-        this.uid = uid
-        this.code = code
-        this.title = title
-        this.active = active
-        this.urlapl = urlapl
-        this.imageLogo = imageLogo
-        this.imageLogoPath = imageLogoPath
+    constructor(parcel: Parcel) : this() {
+        uid = parcel.readValue(Long::class.java.classLoader) as? Long
+        code = parcel.readString()
+        title = parcel.readString()
+        active = parcel.readString()
+        urlapl = parcel.readString()
+        imageLogo = parcel.readString()
+        imageLogoPath = parcel.readString()
     }
 
-    constructor(source: Parcel) : this(
-    )
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeValue(uid)
+        parcel.writeString(code)
+        parcel.writeString(title)
+        parcel.writeString(active)
+        parcel.writeString(urlapl)
+        parcel.writeString(imageLogo)
+        parcel.writeString(imageLogoPath)
+    }
 
-    override fun describeContents() = 0
+    override fun getCriteria(): String {
+        return title.toString();
+    }
 
-    override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {}
+    override fun describeContents(): Int {
+        return 0
+    }
 
-    companion object {
-        fun getMock(hello: String): HospitalItem {
-            return HospitalItem(1L, hello + "1", hello, hello, hello, hello, hello)
+    companion object CREATOR : Parcelable.Creator<HospitalItem> {
+        override fun createFromParcel(parcel: Parcel): HospitalItem {
+            return HospitalItem(parcel)
         }
 
-        @JvmField
-        val CREATOR: Parcelable.Creator<HospitalItem> = object : Parcelable.Creator<HospitalItem> {
-            override fun createFromParcel(source: Parcel): HospitalItem = HospitalItem(source)
-            override fun newArray(size: Int): Array<HospitalItem?> = arrayOfNulls(size)
+        override fun newArray(size: Int): Array<HospitalItem?> {
+            return arrayOfNulls(size)
         }
     }
+
+
 }

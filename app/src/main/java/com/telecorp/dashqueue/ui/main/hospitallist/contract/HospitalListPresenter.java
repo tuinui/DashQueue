@@ -1,4 +1,4 @@
-package com.telecorp.dashqueue.ui.main.contract;
+package com.telecorp.dashqueue.ui.main.hospitallist.contract;
 
 import android.support.annotation.Nullable;
 
@@ -18,7 +18,7 @@ import io.reactivex.functions.Consumer;
  * Created by Saran on 14/10/2560.
  */
 
-public class MainActivityPresenter implements MainActivityContract.Presenter {
+public class HospitalListPresenter implements HospitalListContract.Presenter {
 
     @Inject
     BaseSchedulerProvider mSchedulerProvider;
@@ -26,18 +26,18 @@ public class MainActivityPresenter implements MainActivityContract.Presenter {
     TelecorpApiInterface mApi;
 
     @Nullable
-    private MainActivityContract.View mView;
+    private HospitalListContract.View mView;
     private ArrayList<HospitalItem> mDatas;
 
     @Inject
-    public MainActivityPresenter(TelecorpApiInterface mApi, BaseSchedulerProvider schedulerProvider) {
+    public HospitalListPresenter(TelecorpApiInterface mApi, BaseSchedulerProvider schedulerProvider) {
         this.mApi = mApi;
         this.mSchedulerProvider = schedulerProvider;
     }
 
 
     @Override
-    public void subscribe(MainActivityContract.View view) {
+    public void subscribe(HospitalListContract.View view) {
         mView = view;
         if (!SafeCollectionUtils.isEmpty(mDatas)) {
             loadData();

@@ -3,6 +3,7 @@ package com.telecorp.dashqueue.ui.loginauthen
 import activitystarter.Arg
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.support.v7.widget.Toolbar
 import android.text.TextUtils
 import android.view.View
 import android.widget.Button
@@ -25,6 +26,7 @@ import com.telecorp.dashqueue.utils.getDeviceModelName
 import com.telecorp.dashqueue.utils.pref.MyPreferencesHolder
 import com.telecorp.dashqueue.utils.schedulers.BaseSchedulerProvider
 import kotlinx.android.synthetic.main.activity_login_authen.*
+import kotlinx.android.synthetic.main.view_main_appbar.*
 import javax.inject.Inject
 
 /**
@@ -32,20 +34,21 @@ import javax.inject.Inject
  */
 
 class LoginAuthenActivity : BaseActivity(), LoginAuthenContract.View, Injectable, View.OnClickListener {
-
+    @get:Arg
+    var mData: HospitalItem? by argExtra()
 
     @Inject
     lateinit var mApi: TelecorpApiInterface
     @Inject
     lateinit var mSchedulerProvider: BaseSchedulerProvider
-    @get:Arg
-    var mData: HospitalItem? by argExtra()
+
 
     private val mImageLoaderView: ImageLoaderView by lazy { imageloaderview_login_authen_hospital_image }
     private val mEditTextPhoneNo: MaterialEditText by lazy { edittext_login_authen_phone_no }
     private val mEditTextQueue: MaterialEditText by lazy { edittext_login_authen_phone_queue }
     private val mSwitchRememberMe: SafeSwitch by lazy { switch_login_authen_remember_me }
     private val mButtonSubmit: Button by lazy { button_login_authen_submit }
+    private val mToolbar: Toolbar by lazy { toolbar_main }
     private lateinit var mPresenter: LoginAuthenPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,6 +56,13 @@ class LoginAuthenActivity : BaseActivity(), LoginAuthenContract.View, Injectable
         setContentView(R.layout.activity_login_authen)
         mPresenter = LoginAuthenPresenter(mData, mApi, mSchedulerProvider)
         initView()
+        initToolbar()
+    }
+
+    private fun initToolbar() {
+        mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp)
+        mToolbar.setNavigationOnClickListener { onBackPressed() }
+
     }
 
 
@@ -67,9 +77,10 @@ class LoginAuthenActivity : BaseActivity(), LoginAuthenContract.View, Injectable
     override fun bindData(data: HospitalItem?) {
         data?.apply {
             imageLogoPath?.let { mImageLoaderView.loadImage(it) }
-            if(!TextUtils.isEmpty(MyPreferencesHolder.savedPhoneNumber)){
+            if (!TextUtils.isEmpty(MyPreferencesHolder.savedPhoneNumber)) {
                 mEditTextPhoneNo.setText(MyPreferencesHolder.savedPhoneNumber)
             }
+            mToolbar.title = title
         }
     }
 
@@ -126,7 +137,7 @@ class LoginAuthenActivity : BaseActivity(), LoginAuthenContract.View, Injectable
         val deviceMacAddress = getDeviceModelName()
         val hospitalID = mData?.uid
 
-       mPresenter.onSubmitClick(queueNumber,phoneNumber,deviceName,deviceMacAddress,hospitalID)
+        mPresenter.onSubmitClick(queueNumber, phoneNumber, deviceName, deviceMacAddress, hospitalID)
     }
 
 }

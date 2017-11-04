@@ -9,25 +9,46 @@
 
     <include layout="@layout/view_main_appbar" />
 
-
-    <android.support.v7.widget.SearchView
-        android:id="@+id/searchview_main"
+    <TextView
+        android:id="@+id/textview_main_fcm_token"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:defaultQueryHint="@android:string/search_go"
-        app:iconifiedByDefault="false"
-        app:queryHint="@android:string/search_go" />
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:visibility="gone" />
 
-    <com.telecorp.dashqueue.custom.CustomSwipeRefreshLayout
-        android:id="@+id/swiperefreshlayout_main"
+    <info.hoang8f.android.segmented.SegmentedGroup
+        android:id="@+id/segmentedgroup_main"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="12dp"
+        android:orientation="horizontal"
+        app:sc_tint_color="@color/colorAccent">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerview_main"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </com.telecorp.dashqueue.custom.CustomSwipeRefreshLayout>
+        <android.support.v7.widget.AppCompatRadioButton
+            android:id="@+id/radiobutton_main_hospital"
+            style="@style/RadioButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:checked="true"
+            android:text="@string/hospital" />
+
+        <android.support.v7.widget.AppCompatRadioButton
+            android:id="@+id/radiobutton_main_yourprofile"
+            style="@style/RadioButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/Your_profile" />
+
+    </info.hoang8f.android.segmented.SegmentedGroup>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 
 </LinearLayout>

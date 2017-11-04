@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "923637416797",
+    "firebase_url": "https://dashqueue.firebaseio.com",
+    "project_id": "dashqueue",
+    "storage_bucket": "dashqueue.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:923637416797:android:3b55ecbfa75e4bce",
+        "android_client_info": {
+          "package_name": "com.telecorp.dashqueue"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "923637416797-sajpiitg2q8h83pafju2dcl49m9tu9g5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.telecorp.dashqueue",
+            "certificate_hash": "3ebf009e576f9278dfc7cef5d78dec41aeed0ea5"
+          }
+        },
+        {
+          "client_id": "923637416797-mbmmnn4coeuhoq8re7skpbc807shlg80.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD4pAFxZd0eVZShUNUjV6fKyO4CjDBpRYE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "923637416797-mbmmnn4coeuhoq8re7skpbc807shlg80.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

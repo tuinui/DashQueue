@@ -1,8 +1,13 @@
 <resources>
-    <string name="app_name">Dash Queue</string>
+    <string name="app_name_dashqueue">Dash Queue</string>
     <string name="phone_no">Phone No.</string>
     <string name="hn_queue">HN/Queue</string>
     <string name="submit">Submit</string>
     <string name="remember_me">Remember me</string>
     <string name="Loading">Loading</string>
+    <string name="hospital">Hospital</string>
+    <string name="Your_profile">Your profile</string>
+
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+
 </resources>

@@ -1,45 +1,47 @@
-package com.telecorp.dashqueue.ui.main.recycler
+package com.telecorp.dashqueue.ui.main.hospitallist.recycler
 
-import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.page365.store365.generic.searchable.SearchableRecyclerAdapter
 import com.telecorp.dashqueue.R
 import com.telecorp.dashqueue.api.model.HospitalItem
 import com.telecorp.dashqueue.custom.GenericOnItemClickListener
 import com.telecorp.dashqueue.utils.SafeCollectionUtils
 import kotlinx.android.synthetic.main.view_hospital_item.view.*
-import java.util.*
 
 /**
  * Created by Saran on 13/10/2560.
  */
 
-class HospitalRecyclerAdapter(val onItemClickListener: GenericOnItemClickListener<HospitalItem>?) : RecyclerView.Adapter<HospitalRecyclerAdapter.HospitalItemViewHolder>() {
-    private val mItems = ArrayList<HospitalItem>()
+class HospitalRecyclerAdapter(val onItemClickListener: GenericOnItemClickListener<HospitalItem>?) : SearchableRecyclerAdapter<HospitalRecyclerAdapter.HospitalItemViewHolder>() {
+//    private val mItems = ArrayList<HospitalItem>()
 
-    fun replaceDatas(newDatas: List<HospitalItem>) {
-        val result = DiffUtil.calculateDiff(
-                HospitalItemDiffCallback(mItems, newDatas), false)
-        mItems.clear()
-        mItems.addAll(newDatas)
-        result.dispatchUpdatesTo(this)
-    }
+//    fun replaceDatas(newDatas: List<HospitalItem>) {
+//        mFilteredDatas as
+//        val result = DiffUtil.calculateDiff(
+//                HospitalItemDiffCallback(mFilteredDatas, newDatas), false)
+//        result.dispatchUpdatesTo(this)
+//        mDatas.clear()
+//        mFilteredDatas.clear()
+//        mFilteredDatas.addAll(newDatas)
+//        mDatas.addAll(newDatas)
+//    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HospitalItemViewHolder {
         return HospitalItemViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.view_hospital_item, parent, false))
     }
 
     override fun onBindViewHolder(holder: HospitalItemViewHolder, position: Int) {
-        if (SafeCollectionUtils.isAvailableData(mItems, position)) {
-            holder.bind(mItems[position])
+        if (SafeCollectionUtils.isAvailableData(mFilteredDatas, position)) {
+            holder.bind(mFilteredDatas[position] as HospitalItem)
         }
     }
 
-    override fun getItemCount(): Int {
-        return SafeCollectionUtils.getSize(mItems)
-    }
+//    override fun getItemCount(): Int {
+//        return SafeCollectionUtils.getSize(mItems)
+//    }
 
     inner class HospitalItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
@@ -58,8 +60,8 @@ class HospitalRecyclerAdapter(val onItemClickListener: GenericOnItemClickListene
 
         override fun onClick(v: View?) {
             v?.id?.let {
-                if (it == itemView.id && null != onItemClickListener && SafeCollectionUtils.isAvailableData(mItems, adapterPosition)) {
-                    onItemClickListener.onItemClick(v.context, mItems[adapterPosition])
+                if (it == itemView.id && null != onItemClickListener && SafeCollectionUtils.isAvailableData(mFilteredDatas, adapterPosition)) {
+                    onItemClickListener.onItemClick(v.context, mFilteredDatas[adapterPosition] as HospitalItem)
                 }
             }
         }

@@ -1,11 +1,10 @@
 package com.telecorp.dashqueue.ui.main;
 
-import com.telecorp.dashqueue.di.scope.ActivityScope;
-import com.telecorp.dashqueue.ui.main.contract.MainActivityContract;
-import com.telecorp.dashqueue.ui.main.contract.MainActivityPresenter;
+import com.telecorp.dashqueue.ui.main.hospitallist.HospitalListFragment;
+import com.telecorp.dashqueue.ui.main.yourprofile.YourProfileFragment;
 
-import dagger.Binds;
 import dagger.Module;
+import dagger.android.ContributesAndroidInjector;
 
 /**
  * Created by Saran on 14/10/2560.
@@ -14,7 +13,11 @@ import dagger.Module;
 @Module
 public abstract class MainActivityModule {
 
-    @ActivityScope
-    @Binds
-    abstract MainActivityContract.Presenter bindsPresenter(MainActivityPresenter presenter);
+
+
+    @ContributesAndroidInjector
+    abstract HospitalListFragment contributeRepoFragment();
+
+    @ContributesAndroidInjector
+    abstract YourProfileFragment contributeUserFragment();
 }
