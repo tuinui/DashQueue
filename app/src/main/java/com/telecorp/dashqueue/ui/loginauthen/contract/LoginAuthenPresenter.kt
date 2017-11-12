@@ -1,9 +1,12 @@
 package com.telecorp.dashqueue.ui.loginauthen.contract
 
+import com.google.firebase.iid.FirebaseInstanceId
 import com.telecorp.dashqueue.api.TelecorpApiInterface
 import com.telecorp.dashqueue.api.model.HospitalItem
 import com.telecorp.dashqueue.api.model.LoginAuthenRequestModel
 import com.telecorp.dashqueue.api.model.LoginAuthenResponseModel
+import com.telecorp.dashqueue.api.model.RegisterTokenRequestModel
+import com.telecorp.dashqueue.utils.pref.AppTokenModel
 import com.telecorp.dashqueue.utils.pref.MyPreferencesHolder
 import com.telecorp.dashqueue.utils.schedulers.BaseSchedulerProvider
 
@@ -31,17 +34,17 @@ class LoginAuthenPresenter(private val mData: HospitalItem?, private val mApi: T
 
     }
 
-    override fun onSubmitClick(queueNumber: String, phoneNumber: String, deviceName: String, deviceMacAddress: String, hospitalId: Long?) {
+    override fun onSubmitClick(queueNumber: String, phoneNumber: String, deviceName: String, deviceMacAddress: String) {
         if (null != mView) {
             mView?.showLoading(true)
         }
-        if(MyPreferencesHolder.rememberMe){
+        if (MyPreferencesHolder.rememberMe) {
             MyPreferencesHolder.savedPhoneNumber = phoneNumber
-        }else{
+        } else {
             MyPreferencesHolder.savedPhoneNumber = ""
         }
 
-        mApi.postLoginAuthen(LoginAuthenRequestModel(queueNumber, phoneNumber, deviceName, deviceMacAddress, hospitalId))
+        mApi.postLoginAuthen(LoginAuthenRequestModel(queueNumber, phoneNumber, deviceName, deviceMacAddress, mData?.uid))
                 .subscribeOn(mSchedulerProvider.io())
                 .observeOn(mSchedulerProvider.ui())
                 .subscribe({ loginAuthenResponseModel ->
@@ -56,8 +59,36 @@ class LoginAuthenPresenter(private val mData: HospitalItem?, private val mApi: T
                     }
                 }) {
                     if (null != mView) {
-                        mView?.showLoadingDataFinish()
+                        MyPreferencesHolder.appTokenModel = AppTokenModel(queueNumber, phoneNumber, mData)
+                        sendTokenToService()
                     }
                 }
+    }
+
+    private fun sendTokenToService() {
+        if (null != FirebaseInstanceId.getInstance()?.id && null != MyPreferencesHolder.appTokenModel) {
+            MyPreferencesHolder.appTokenModel?.apply {
+                mApi.postRegisterToken(RegisterTokenRequestModel(queueNumber,phoneNumber,FirebaseInstanceId.getInstance().id , hospitalItem?.uid)).subscribeOn(mSchedulerProvider.io())
+                        .observeOn(mSchedulerProvider.ui())
+                        .subscribe({
+                            if (null != mView) {
+                                mView?.showLoading(false)
+                            }
+                        }, { throwable ->
+                            if (null != mView) {
+                                mView?.showLoading(false)
+                                mView?.showErrorNetwork(throwable.cause.toString())
+                            }
+                        }) {
+                            if (null != mView) {
+                                mView?.showLoadingDataFinish()
+                                mView?.showQueueActivity(mData,mAuthenResponse)
+                            }
+                        }
+            }
+        }else{
+            mView?.showQueueActivity(mData, mAuthenResponse)
+        }
+
     }
 }

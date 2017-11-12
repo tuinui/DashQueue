@@ -1,6 +1,7 @@
 package com.telecorp.dashqueue.ui.loginauthen.contract
 
 import com.telecorp.dashqueue.api.model.HospitalItem
+import com.telecorp.dashqueue.api.model.LoginAuthenResponseModel
 import com.telecorp.dashqueue.base.BasePresenter
 import com.telecorp.dashqueue.base.BaseView
 
@@ -15,6 +16,8 @@ class LoginAuthenContract {
         fun bindData(data: HospitalItem?)
         fun showErrorNetwork(error: String)
         fun showLoadingDataFinish()
+        fun showQueueActivity(mData: HospitalItem?, mAuthenResponse: LoginAuthenResponseModel?)
+
     }
 
 
@@ -27,7 +30,7 @@ class LoginAuthenContract {
         val hospitalID = mData?.uid
 
          */
-        fun onSubmitClick(queueNumber: String, phoneNumber: String, deviceName: String, deviceMacAddress: String, hospitalId: Long?)
+        fun onSubmitClick(queueNumber: String, phoneNumber: String, deviceName: String, deviceMacAddress: String)
 
         fun onRememberMeCheckChange(checked: Boolean)
     }

@@ -7,5 +7,6 @@ import com.marcinmoskala.kotlinpreferences.PreferenceHolder
  */
 object MyPreferencesHolder : PreferenceHolder() {
     var savedPhoneNumber: String by bindToPreferenceField("")
+    var appTokenModel: AppTokenModel? by bindToPreferenceFieldNullable()
     var rememberMe: Boolean by bindToPreferenceField(true)
 }

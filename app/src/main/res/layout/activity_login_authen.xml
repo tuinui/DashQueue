@@ -41,6 +41,17 @@
                 app:met_floatingLabelText="@string/phone_no"
                 app:met_textColorHint="@color/colorAccent" />
 
+            <com.telecorp.dashqueue.custom.SafeSwitch
+                android:id="@+id/switch_login_authen_remember_me"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+
+                android:drawablePadding="8dp"
+                android:paddingRight="8dp"
+                android:text="@string/remember_me"
+                app:switchPadding="8dp" />
+
             <com.rengwuxian.materialedittext.MaterialEditText
                 android:id="@+id/edittext_login_authen_phone_queue"
                 android:layout_width="match_parent"
@@ -55,15 +66,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="8dp" />
 
-            <com.telecorp.dashqueue.custom.SafeSwitch
-                android:id="@+id/switch_login_authen_remember_me"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:drawablePadding="8dp"
-                android:paddingRight="8dp"
-                android:text="@string/remember_me"
-                app:switchPadding="8dp" />
 
             <android.support.v4.widget.Space
                 android:layout_width="match_parent"
@@ -71,6 +73,7 @@
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/button_login_authen_submit"
+                style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"

@@ -14,12 +14,14 @@ import com.telecorp.dashqueue.BuildConfig
 import com.telecorp.dashqueue.R
 import com.telecorp.dashqueue.api.TelecorpApiInterface
 import com.telecorp.dashqueue.api.model.HospitalItem
+import com.telecorp.dashqueue.api.model.LoginAuthenResponseModel
 import com.telecorp.dashqueue.base.BaseActivity
 import com.telecorp.dashqueue.custom.SafeSwitch
 import com.telecorp.dashqueue.custom.imageloader.ImageLoaderView
 import com.telecorp.dashqueue.di.Injectable
 import com.telecorp.dashqueue.ui.loginauthen.contract.LoginAuthenContract
 import com.telecorp.dashqueue.ui.loginauthen.contract.LoginAuthenPresenter
+import com.telecorp.dashqueue.ui.queue.QueueActivityStarter
 import com.telecorp.dashqueue.utils.extractString
 import com.telecorp.dashqueue.utils.getDeviceImei
 import com.telecorp.dashqueue.utils.getDeviceModelName
@@ -32,8 +34,9 @@ import javax.inject.Inject
 /**
  * Created by Saran on 30/10/2560.
  */
-
 class LoginAuthenActivity : BaseActivity(), LoginAuthenContract.View, Injectable, View.OnClickListener {
+
+
     @get:Arg
     var mData: HospitalItem? by argExtra()
 
@@ -80,6 +83,7 @@ class LoginAuthenActivity : BaseActivity(), LoginAuthenContract.View, Injectable
             if (!TextUtils.isEmpty(MyPreferencesHolder.savedPhoneNumber)) {
                 mEditTextPhoneNo.setText(MyPreferencesHolder.savedPhoneNumber)
             }
+            mSwitchRememberMe.setSafeCheck(MyPreferencesHolder.rememberMe,SafeSwitch.IGNORE)
             mToolbar.title = title
         }
     }
@@ -102,15 +106,18 @@ class LoginAuthenActivity : BaseActivity(), LoginAuthenContract.View, Injectable
         Toast.makeText(this, "Finish!!!", Toast.LENGTH_LONG).show()
     }
 
+    override fun showQueueActivity(hospitalItem: HospitalItem?, authenData: LoginAuthenResponseModel?) {
+        QueueActivityStarter.start(this, hospitalItem,authenData)
+    }
+
     @SuppressLint("SetTextI18n")
     private fun initView() {
         if (BuildConfig.DEBUG) {
             mEditTextQueue.setText("A001")
-            mEditTextPhoneNo.setText("0868894920")
+            mEditTextPhoneNo.setText("08283762563")
         }
         mButtonSubmit.setOnClickListener(this)
     }
-
 
     override fun onClick(v: View?) {
         v?.id?.let {
@@ -119,7 +126,6 @@ class LoginAuthenActivity : BaseActivity(), LoginAuthenContract.View, Injectable
             }
         }
     }
-
 
     private fun onSubmitClick() {
         /*
@@ -135,9 +141,9 @@ class LoginAuthenActivity : BaseActivity(), LoginAuthenContract.View, Injectable
         val phoneNumber = mEditTextPhoneNo.extractString()
         val deviceName = getDeviceImei()
         val deviceMacAddress = getDeviceModelName()
-        val hospitalID = mData?.uid
+//        val hospitalID = mData?.uid
 
-        mPresenter.onSubmitClick(queueNumber, phoneNumber, deviceName, deviceMacAddress, hospitalID)
+        mPresenter.onSubmitClick(queueNumber, phoneNumber, deviceName, deviceMacAddress)
     }
 
 }

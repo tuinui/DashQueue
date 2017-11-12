@@ -10,14 +10,18 @@
 
     <color name="colorPrimaryDark">#338a3e</color>
 
-    <color name="colorAccent">#4fc3f7</color>
+    <color name="colorAccent">#66bb6a</color>
 
     <color name="colorAccentLight">#8bf6ff</color>
 
-    <color name="colorAccentDark">#0093c4</color>
+    <color name="blue_queue">#1B96F3</color>
 
+    <color name="orange_queue">#FE9900</color>
+
+    <color name="black_semi_transparent">#B2000000</color>
 
     <!--<color name="colorPrimary">#3F51B5</color>-->
     <!--<color name="colorPrimaryDark">#303F9F</color>-->
     <!--<color name="colorAccent">#FF4081</color>-->
+
 </resources>

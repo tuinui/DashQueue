@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <com.telecorp.dashqueue.custom.imageloader.ImageLoaderView
+        android:id="@+id/imageloaderview_queue_header_hospital"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/background_gradient_vertical_frombottom_black"
+        app:ratioHeight="2"
+        app:ratioWidth="5" />
+
+    <TextView
+        android:id="@+id/textview_queue_header_department"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="8dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textStyle="bold"
+        tools:text="แผนก Medical Center" />
+
+    <TextView
+        android:id="@+id/textview_queue_header_doctor_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="2dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@color/blue_queue"
+        android:textStyle="bold"
+        tools:text="น.พ. สุขุม อารยะ" />
+
+
+    <android.support.v4.widget.Space
+        android:layout_width="match_parent"
+        android:layout_height="24dp" />
+
+    <TextView
+        android:id="@+id/textview_queue_header_wating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="8dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@color/blue_queue"
+        tools:text="จำนวนรอ 3 คน" />
+
+    <TextView
+        android:id="@+id/textview_queue_header_queue_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="8dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="@color/orange_queue"
+        android:textStyle="bold"
+        android:text="@string/Your_queue_number_is" />
+
+    <TextView
+        android:id="@+id/textview_queue_header_queue_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="16dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display3"
+        android:textColor="@android:color/black"
+        android:textStyle="bold"
+        tools:text="A001" />
+
+    <TextView
+        android:id="@+id/textview_queue_header_last_updated_at"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        tools:text="Last update 2017" />
+
+</LinearLayout>

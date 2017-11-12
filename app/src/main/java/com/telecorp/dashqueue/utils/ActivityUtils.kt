@@ -15,14 +15,28 @@ import android.telephony.TelephonyManager
          */
 
 fun Activity.getDeviceImei(): String {
-    val mTelephonyManager = getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
-    return mTelephonyManager.deviceId ?: ""
+    var deviceId = ""
+    try {
+        val mTelephonyManager = getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
+        deviceId = mTelephonyManager.deviceId ?: ""
+    } catch (ignored: Exception) {
+
+    }
+
+    return deviceId
 }
 
 fun getDeviceModelName(): String {
-    return (Build.MANUFACTURER
-            + " " + Build.MODEL + " " + Build.VERSION.RELEASE
-            + " " + Build.VERSION_CODES::class.java.fields[android.os.Build.VERSION.SDK_INT].name)
+    var deviceName = ""
+
+    try {
+        deviceName = (Build.MANUFACTURER
+                + " " + Build.MODEL + " " + Build.VERSION.RELEASE
+                + " " + Build.VERSION_CODES::class.java.fields[android.os.Build.VERSION.SDK_INT].name)
+    } catch (ignored: Exception) {
+
+    }
+    return deviceName
 }
 
 fun Activity.copyTextToClipboard(label: String, text: String) {

@@ -5,7 +5,6 @@ import android.support.v4.app.Fragment
 import android.support.v4.view.ViewPager
 import android.support.v7.widget.AppCompatRadioButton
 import android.support.v7.widget.Toolbar
-import android.util.Log
 import android.view.View
 import android.widget.RadioGroup
 import android.widget.TextView
@@ -18,7 +17,9 @@ import com.telecorp.dashqueue.custom.GenericFragmentPagerAdapter
 import com.telecorp.dashqueue.di.Injectable
 import com.telecorp.dashqueue.ui.main.hospitallist.HospitalListFragment
 import com.telecorp.dashqueue.ui.main.yourprofile.YourProfileFragment
+import com.telecorp.dashqueue.ui.queue.QueueActivityStarter
 import com.telecorp.dashqueue.utils.copyTextToClipboard
+import com.telecorp.dashqueue.utils.pref.MyPreferencesHolder
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
@@ -64,7 +65,9 @@ class MainActivity : BaseActivity(), Injectable, HasSupportFragmentInjector {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         ButterKnife.bind(this)
-
+        if (checkIfAlreadyLogin()) {
+            return
+        }
         if (savedInstanceState == null) {
             initContentFragments()
         }
@@ -72,6 +75,15 @@ class MainActivity : BaseActivity(), Injectable, HasSupportFragmentInjector {
         initToolbar()
         initView()
         initViewPager()
+    }
+
+    private fun checkIfAlreadyLogin(): Boolean {
+
+        MyPreferencesHolder.appTokenModel?.let {
+            QueueActivityStarter.start(this, it.hospitalItem)
+            return true
+        }
+        return false
     }
 
     private fun initContentFragments() {
@@ -104,8 +116,8 @@ class MainActivity : BaseActivity(), Injectable, HasSupportFragmentInjector {
     }
 
     override fun onBackPressed() {
-//        super.onBackPressed()
-        Log.i("MainActivity", "Firebase token : " + FirebaseInstanceId.getInstance().token)
+        super.onBackPressed()
+//        Log.i("MainActivity", "Firebase token : " + FirebaseInstanceId.getInstance().token)
     }
 
 }

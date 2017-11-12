@@ -49,8 +49,7 @@ ext {
     rxJavaVersion = '2.1.5'
     guavaVersion = '18.0'
     firebaseVersion = '11.4.2'
-
-
+    preferenceHolderVersion = '1.51'
 
     //unit_test
     junitVersion = '4.12'

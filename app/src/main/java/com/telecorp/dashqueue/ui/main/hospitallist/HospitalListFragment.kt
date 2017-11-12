@@ -1,7 +1,9 @@
 package com.telecorp.dashqueue.ui.main.hospitallist
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.support.v4.app.ActivityCompat
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -23,6 +25,7 @@ import com.telecorp.dashqueue.ui.main.hospitallist.recycler.HospitalRecyclerAdap
 import com.telecorp.dashqueue.utils.schedulers.BaseSchedulerProvider
 import kotlinx.android.synthetic.main.fragment_hospital_list.*
 import javax.inject.Inject
+
 
 /**
  * Created by Saran on 4/11/2560.
@@ -48,13 +51,10 @@ class HospitalListFragment : BaseFragment(), HospitalListContract.View, Injectab
 
     private val mAdapter = HospitalRecyclerAdapter(object : GenericOnItemClickListener<HospitalItem> {
         override fun onItemClick(context: Context, data: HospitalItem) {
-            LoginAuthenActivityStarter.start(context, data)
+            LoginAuthenActivityStarter.startWithFlags(context, data, Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            ActivityCompat.finishAffinity(activity)
         }
     })
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater?.inflate(R.layout.fragment_hospital_list, container, false)

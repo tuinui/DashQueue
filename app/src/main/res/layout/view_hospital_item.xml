@@ -1,34 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="16dp"
-    android:orientation="vertical"
-    app:cardElevation="8dp">
+    android:foreground="?attr/selectableItemBackground"
+    android:orientation="vertical">
 
-    <LinearLayout
+    <com.telecorp.dashqueue.custom.imageloader.ImageLoaderView
+        android:id="@+id/imageloaderview_hospital_item_image"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        app:ratioHeight="9"
+        app:ratioWidth="16" />
 
-        <com.telecorp.dashqueue.custom.imageloader.ImageLoaderView
-            android:id="@+id/imageloaderview_hospital_item_image"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:ratioHeight="9"
-            app:ratioWidth="16" />
 
-        <TextView
-            android:id="@+id/textview_hospital_item_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:background="@android:color/black"
-            android:padding="8dp"
-            android:text="hello"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="@android:color/white" />
-    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background_gradient_vertical_frombottom_black" />
 
-</android.support.v7.widget.CardView>
+    <TextView
+        android:id="@+id/textview_hospital_item_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+
+        android:padding="16dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="@android:color/white"
+        tools:text="hello" />
+
+</FrameLayout>
