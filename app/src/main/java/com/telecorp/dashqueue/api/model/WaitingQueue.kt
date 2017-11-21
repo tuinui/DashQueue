@@ -5,18 +5,6 @@ import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 
 class WaitingQueue() : Parcelable {
-    /*
-          "UID": 2,
-        "MSOrganizationUID": 5,
-        "TrPatientQueueUID": 1,
-        "QueueNumber": "A001",
-        "LocationQueueName": "Medical Center",
-        "DoctorName": "ทดสอบ",
-        "WaitingNumber": "3",
-        "ProcessName": "รอตรวจ",
-        "CWhen": "0001-01-01T00:00:00",
-        "CurrentTime": "2017-10-30T23:12:57.0186452+07:00"
-         */
     @SerializedName("UID")
     var uid: Long? = null
 

@@ -5,7 +5,7 @@ import com.telecorp.dashqueue.api.TelecorpApiInterface
 import com.telecorp.dashqueue.api.model.HospitalItem
 import com.telecorp.dashqueue.api.model.LoginAuthenRequestModel
 import com.telecorp.dashqueue.api.model.LoginAuthenResponseModel
-import com.telecorp.dashqueue.api.model.RegisterTokenRequestModel
+import com.telecorp.dashqueue.api.model.TokenRequestModel
 import com.telecorp.dashqueue.ui.queue.recycler.model.HeaderQueueItemEntity
 import com.telecorp.dashqueue.ui.queue.recycler.model.QueueItemEntity
 import com.telecorp.dashqueue.ui.queue.recycler.model.WaitingQueueItemEntity
@@ -42,9 +42,32 @@ class QueueActivityPresenter(val mHospitalData: HospitalItem?, var mLoginAuthenD
         mView = null
     }
 
+    override fun requestLogout() {
+        mView?.showLoading(true)
+        MyPreferencesHolder.appTokenModel?.apply {
+            val token = FirebaseInstanceId.getInstance().token
+            if (token?.isNotEmpty() == true) {
+                mApi.postLogoutAuthen(TokenRequestModel(queueNumber, phoneNumber, token, hospitalItem?.uid)).subscribeOn(mSchedulerProvider.io())
+                        .observeOn(mSchedulerProvider.ui())
+                        .subscribe({ response ->
+                            mView?.showLoading(false)
+                            if(response.isSuccess == true){
+                                mView?. openHospitalListActivity()
+                            }
+
+                        }, { throwable ->
+                            if (null != mView) {
+                                mView?.showLoading(false)
+                                mView?.showErrorNetwork(throwable.cause.toString())
+                            }
+                        })
+            }
+
+        }
+    }
 
     override fun refreshData(deviceName: String, deviceMacAddress: String) {
-
+        mView?.showLoading(true)
         mCurrentDeviceName = deviceName
         mCurrentDeviceMacAddress = deviceMacAddress
         MyPreferencesHolder.appTokenModel?.apply {
@@ -63,12 +86,13 @@ class QueueActivityPresenter(val mHospitalData: HospitalItem?, var mLoginAuthenD
                             mView?.showLoading(false)
                             mView?.showErrorNetwork(throwable.cause.toString())
                         }
-                    }) {
-                        if (null != mView) {
-                            MyPreferencesHolder.appTokenModel = AppTokenModel(queueNumber, phoneNumber, hospitalItem)
-                            sendTokenToService()
-                        }
-                    }
+                    })
+
+            if (null != mView) {
+                MyPreferencesHolder.appTokenModel = AppTokenModel(queueNumber, phoneNumber, hospitalItem)
+                sendTokenToService()
+            }
+
         }
     }
 
@@ -83,7 +107,7 @@ class QueueActivityPresenter(val mHospitalData: HospitalItem?, var mLoginAuthenD
     private fun sendTokenToService() {
         if (null != FirebaseInstanceId.getInstance()?.id && null != MyPreferencesHolder.appTokenModel) {
             MyPreferencesHolder.appTokenModel?.apply {
-                mApi.postRegisterToken(RegisterTokenRequestModel(queueNumber, phoneNumber, FirebaseInstanceId.getInstance().id, hospitalItem?.uid)).subscribeOn(mSchedulerProvider.io())
+                mApi.postRegisterToken(TokenRequestModel(queueNumber, phoneNumber, FirebaseInstanceId.getInstance().id, hospitalItem?.uid)).subscribeOn(mSchedulerProvider.io())
                         .observeOn(mSchedulerProvider.ui())
                         .subscribe({
                             if (null != mView) {

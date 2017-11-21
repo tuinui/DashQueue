@@ -5,7 +5,7 @@ import com.telecorp.dashqueue.api.TelecorpApiInterface
 import com.telecorp.dashqueue.api.model.HospitalItem
 import com.telecorp.dashqueue.api.model.LoginAuthenRequestModel
 import com.telecorp.dashqueue.api.model.LoginAuthenResponseModel
-import com.telecorp.dashqueue.api.model.RegisterTokenRequestModel
+import com.telecorp.dashqueue.api.model.TokenRequestModel
 import com.telecorp.dashqueue.utils.pref.AppTokenModel
 import com.telecorp.dashqueue.utils.pref.MyPreferencesHolder
 import com.telecorp.dashqueue.utils.schedulers.BaseSchedulerProvider
@@ -68,7 +68,7 @@ class LoginAuthenPresenter(private val mData: HospitalItem?, private val mApi: T
     private fun sendTokenToService() {
         if (null != FirebaseInstanceId.getInstance()?.id && null != MyPreferencesHolder.appTokenModel) {
             MyPreferencesHolder.appTokenModel?.apply {
-                mApi.postRegisterToken(RegisterTokenRequestModel(queueNumber,phoneNumber,FirebaseInstanceId.getInstance().id , hospitalItem?.uid)).subscribeOn(mSchedulerProvider.io())
+                mApi.postRegisterToken(TokenRequestModel(queueNumber,phoneNumber,FirebaseInstanceId.getInstance().id , hospitalItem?.uid)).subscribeOn(mSchedulerProvider.io())
                         .observeOn(mSchedulerProvider.ui())
                         .subscribe({
                             if (null != mView) {

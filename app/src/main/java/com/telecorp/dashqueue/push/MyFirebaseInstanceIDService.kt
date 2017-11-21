@@ -24,7 +24,7 @@ import android.util.Log
 import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.iid.FirebaseInstanceIdService
 import com.telecorp.dashqueue.api.TelecorpApiInterface
-import com.telecorp.dashqueue.api.model.RegisterTokenRequestModel
+import com.telecorp.dashqueue.api.model.TokenRequestModel
 import com.telecorp.dashqueue.utils.pref.MyPreferencesHolder
 import com.telecorp.dashqueue.utils.schedulers.BaseSchedulerProvider
 import dagger.android.AndroidInjection
@@ -70,7 +70,7 @@ class MyFirebaseInstanceIDService : FirebaseInstanceIdService() {
     private fun sendRegistrationToServer(token: String?) {
         if (!TextUtils.isEmpty(token)) {
             MyPreferencesHolder.appTokenModel?.apply {
-                mApi.postRegisterToken(RegisterTokenRequestModel(queueNumber, phoneNumber, token, hospitalItem?.uid)).subscribeOn(mSchedulerProvider.io())
+                mApi.postRegisterToken(TokenRequestModel(queueNumber, phoneNumber, token, hospitalItem?.uid)).subscribeOn(mSchedulerProvider.io())
                         .observeOn(mSchedulerProvider.ui())
                         .subscribe()
             }

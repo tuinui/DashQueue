@@ -59,7 +59,7 @@ public class HospitalListPresenterTest {
 
         // We start the tasks to 3, with one active and two completed
         DATAS = new ArrayList<>();
-        DATAS.add(HospitalItem.Companion.getMock("a;sldfh;alsdkfj"));
+//        DATAS.add(HospitalItem.Companion.getMock("a;sldfh;alsdkfj"));
     }
 
     @Test

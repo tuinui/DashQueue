@@ -44,7 +44,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         remoteMessage?.data?.let {
             if (it.isNotEmpty()) {
                 Log.d(TAG, "Message waiting payload: " + it.toString())
-                sendNotification("Test : " + remoteMessage.data.toString())
+//                sendNotification("Test : " + remoteMessage.data.toString())
             }
 
         }
@@ -56,38 +56,38 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
 
     }
-    /**
-     * Handle time allotted to BroadcastReceivers.
-     */
-    private fun handleNow() {
-        Log.d(TAG, "Short lived task is done.")
-    }
+//    /**
+//     * Handle time allotted to BroadcastReceivers.
+//     */
+//    private fun handleNow() {
+//        Log.d(TAG, "Short lived task is done.")
+//    }
 
-    /**
-     * Create and show a simple notification containing the received FCM message.
-     *
-     * @param messageBody FCM message body received.
-     */
-    private fun sendNotification(messageBody: String) {
-        val intent = Intent(this, MainActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        val pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
-                PendingIntent.FLAG_ONE_SHOT)
-
-        val channelId = getString(R.string.default_notification_channel_id)
-        val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
-        val notificationBuilder = NotificationCompat.Builder(this, channelId)
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentTitle("FCM Message")
-                .setContentText(messageBody)
-                .setAutoCancel(true)
-                .setSound(defaultSoundUri)
-                .setContentIntent(pendingIntent)
-
-        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
-        notificationManager.notify(0 /* ID of notification */, notificationBuilder.build())
-    }
+//    /**
+//     * Create and show a simple notification containing the received FCM message.
+//     *
+//     * @param messageBody FCM message body received.
+//     */
+//    private fun sendNotification(messageBody: String) {
+//        val intent = Intent(this, MainActivity::class.java)
+//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+//        val pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
+//                PendingIntent.FLAG_ONE_SHOT)
+//
+//        val channelId = getString(R.string.default_notification_channel_id)
+//        val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+//        val notificationBuilder = NotificationCompat.Builder(this, channelId)
+//                .setSmallIcon(R.mipmap.ic_launcher)
+//                .setContentTitle("FCM Message")
+//                .setContentText(messageBody)
+//                .setAutoCancel(true)
+//                .setSound(defaultSoundUri)
+//                .setContentIntent(pendingIntent)
+//
+//        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+//
+//        notificationManager.notify(0 /* ID of notification */, notificationBuilder.build())
+//    }
 
     private fun sendNotification(remoteNotification: RemoteMessage.Notification?) {
         remoteNotification?.let {

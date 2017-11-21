@@ -127,14 +127,17 @@ class QueueActivity : BaseActivity(), Toolbar.OnMenuItemClickListener, Injectabl
                 .setTitle(R.string.Reject_Queue)
                 .setMessage(R.string.Are_you_sure_you_want_to_stop_receiving_notification)
                 .setPositiveButton(R.string.Confirm) { dialog, which ->
-                    openHospitalListActivity()
+
+                    mPresenter.requestLogout()
                 }
                 .setNegativeButton(R.string.Cancel, { dialog, which ->
                     dialog.dismiss()
                 }).create().show()
     }
 
-    private fun openHospitalListActivity() {
+
+
+    override fun openHospitalListActivity() {
         MyPreferencesHolder.appTokenModel = null
         val intent = Intent(this, MainActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)

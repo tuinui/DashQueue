@@ -18,11 +18,13 @@ class QueueActivityContract {
         fun showErrorNetwork(error: String)
 
         fun showLoadingDataFinish()
+        fun openHospitalListActivity()
     }
 
 
     interface Presenter : BasePresenter<View> {
         fun refreshData(deviceName: String, deviceMacAddress: String)
+        fun requestLogout()
     }
 }
 

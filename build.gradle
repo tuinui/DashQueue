@@ -1,7 +1,7 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    ext.kotlin_version = '1.1.51'
+    ext.kotlin_version = '1.1.60'
     repositories {
         jcenter()
         maven { url 'https://maven.google.com' }
@@ -31,11 +31,14 @@ allprojects {
 //}
 
 ext {
+    versionCode = 101
+    versionName = "1.0.1"
+
     // Sdk and tools
     minSdkVersion = 16
     targetSdkVersion = 21
     compileSdkVersion = 26
-    buildToolsVersion = '26.0.1'
+    buildToolsVersion = '26.0.2'
 
     // App dependencies
     supportLibraryVersion = '26.1.0'

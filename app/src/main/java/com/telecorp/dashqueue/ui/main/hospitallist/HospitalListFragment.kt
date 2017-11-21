@@ -1,7 +1,6 @@
 package com.telecorp.dashqueue.ui.main.hospitallist
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v4.widget.SwipeRefreshLayout
@@ -51,7 +50,7 @@ class HospitalListFragment : BaseFragment(), HospitalListContract.View, Injectab
 
     private val mAdapter = HospitalRecyclerAdapter(object : GenericOnItemClickListener<HospitalItem> {
         override fun onItemClick(context: Context, data: HospitalItem) {
-            LoginAuthenActivityStarter.startWithFlags(context, data, Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            LoginAuthenActivityStarter.start(context, data)
             ActivityCompat.finishAffinity(activity)
         }
     })

@@ -9,5 +9,5 @@ import com.google.gson.annotations.SerializedName
 class SuccessResponseModel {
 
     @SerializedName("success")
-    val isSuccess: Boolean = false
+    var isSuccess: Boolean? = false
 }

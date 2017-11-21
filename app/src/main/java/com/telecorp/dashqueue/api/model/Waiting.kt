@@ -5,13 +5,6 @@ import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 
 class Waiting() : Parcelable {
-    /*{
-            "Number": 4,
-            "QueueNumber": "A001",
-            "ProcessName": "รอตรวจ",
-            "CurrentQueue": "Y",
-            "Currentdate": "2017-10-30T23:12:57.0186452+07:00"
-        }*/
     @SerializedName("Number")
     var number: Long? = null
     @SerializedName("QueueNumber")

@@ -30,5 +30,21 @@ Data POST:
 
 
     @POST("Registerdservice")
-    fun postRegisterToken(@Body data:RegisterTokenRequestModel):Observable<SuccessResponseModel>
+    fun postRegisterToken(@Body data: TokenRequestModel):Observable<SuccessResponseModel>
+
+    @POST("Logout")
+    fun postLogoutAuthen(@Body tokenRequestModel: TokenRequestModel):Observable<SuccessResponseModel>
+
+    /*
+    POST=> http://telecorp.co.th/QCore/api/PageOther/
+
+{
+    "QueueNumber": "A511",
+    "Tel": "0827551713",
+    "HospitalID": "5"
+ }
+     */
+    @POST("PageOther")
+    fun postLandingPage(@Body profileRequestModel: ProfileRequestModel):Observable<Any>
+
 }

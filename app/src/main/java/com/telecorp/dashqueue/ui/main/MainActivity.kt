@@ -1,6 +1,7 @@
 package com.telecorp.dashqueue.ui.main
 
 import android.os.Bundle
+import android.support.v4.app.ActivityCompat
 import android.support.v4.app.Fragment
 import android.support.v4.view.ViewPager
 import android.support.v7.widget.AppCompatRadioButton
@@ -50,7 +51,7 @@ class MainActivity : BaseActivity(), Injectable, HasSupportFragmentInjector {
     val mViewPager: ViewPager by lazy { viewpager_main }
     private val mContentFragments = ArrayList<Fragment>()
     private val mHospitalListFragment = HospitalListFragment.newInstance()
-    private val mYourProfileFragment = YourProfileFragment.newInstance("https://marketdata.set.or.th/mkt/stockquotation.do?symbol=D")
+    private val mYourProfileFragment = YourProfileFragment.newInstance()
 
     private val mToggleListener = RadioGroup.OnCheckedChangeListener { group, checkedId ->
         if (checkedId == mRadioHospital.id) {
@@ -81,6 +82,7 @@ class MainActivity : BaseActivity(), Injectable, HasSupportFragmentInjector {
 
         MyPreferencesHolder.appTokenModel?.let {
             QueueActivityStarter.start(this, it.hospitalItem)
+            ActivityCompat.finishAffinity(this)
             return true
         }
         return false
@@ -113,11 +115,6 @@ class MainActivity : BaseActivity(), Injectable, HasSupportFragmentInjector {
 
     private fun initToolbar() {
         mToolbar.setTitle(R.string.app_name_dashqueue)
-    }
-
-    override fun onBackPressed() {
-        super.onBackPressed()
-//        Log.i("MainActivity", "Firebase token : " + FirebaseInstanceId.getInstance().token)
     }
 
 }

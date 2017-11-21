@@ -3,6 +3,7 @@ package com.telecorp.dashqueue.ui.loginauthen
 import activitystarter.Arg
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.support.v4.app.ActivityCompat
 import android.support.v7.widget.Toolbar
 import android.text.TextUtils
 import android.view.View
@@ -106,8 +107,9 @@ class LoginAuthenActivity : BaseActivity(), LoginAuthenContract.View, Injectable
         Toast.makeText(this, "Finish!!!", Toast.LENGTH_LONG).show()
     }
 
-    override fun showQueueActivity(hospitalItem: HospitalItem?, authenData: LoginAuthenResponseModel?) {
-        QueueActivityStarter.start(this, hospitalItem,authenData)
+    override fun showQueueActivity(data: HospitalItem?, response: LoginAuthenResponseModel?) {
+        QueueActivityStarter.start(this, data, response)
+        ActivityCompat.finishAffinity(this)
     }
 
     @SuppressLint("SetTextI18n")

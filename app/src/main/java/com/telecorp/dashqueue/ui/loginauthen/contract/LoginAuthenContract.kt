@@ -16,7 +16,7 @@ class LoginAuthenContract {
         fun bindData(data: HospitalItem?)
         fun showErrorNetwork(error: String)
         fun showLoadingDataFinish()
-        fun showQueueActivity(mData: HospitalItem?, mAuthenResponse: LoginAuthenResponseModel?)
+        fun showQueueActivity(data: HospitalItem?, response: LoginAuthenResponseModel?)
 
     }
 

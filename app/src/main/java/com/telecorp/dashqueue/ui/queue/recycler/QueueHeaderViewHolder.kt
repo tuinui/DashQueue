@@ -5,6 +5,7 @@ import android.view.View
 import com.telecorp.dashqueue.R
 import com.telecorp.dashqueue.api.model.HospitalItem
 import com.telecorp.dashqueue.api.model.WaitingQueue
+import com.telecorp.dashqueue.utils.DateParseUtils
 import kotlinx.android.synthetic.main.itemview_queue_header.view.*
 import java.util.*
 
@@ -29,7 +30,7 @@ class QueueHeaderViewHolder(v: View) : RecyclerView.ViewHolder(v) {
 
     fun bindWaitingQueue(data: WaitingQueue?) {
         data?.apply {
-            tvLastUpdated.text = String.format(Locale.getDefault(), LLast_updated_, cWhen)
+            tvLastUpdated.text = String.format(Locale.getDefault(), LLast_updated_, DateParseUtils.relativeParseDateTime(itemView.context, cWhen))
             tvDoctorName.text = doctorName
             tvQueueNumber.text = queueNo
             tvDepartment.text = locationQueueName
