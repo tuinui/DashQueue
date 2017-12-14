@@ -45,6 +45,6 @@ Data POST:
  }
      */
     @POST("PageOther")
-    fun postLandingPage(@Body profileRequestModel: ProfileRequestModel):Observable<Any>
+    fun postLandingPage(@Body profileRequestModel: ProfileRequestModel):Observable<PageUrlModel>
 
 }

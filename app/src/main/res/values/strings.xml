@@ -18,5 +18,7 @@
     <string name="Are_you_sure_you_want_to_stop_receiving_notification">Are you sure you want to stop receiving notification?</string>
     <string name="Confirm">Confirm</string>
     <string name="Cancel">Cancel</string>
-
+    <string name="Profile">Profile</string>
+    <string name="Queue_List">Queue List</string>
+    <string name="Waiting_Queue">Wating Queue</string>
 </resources>

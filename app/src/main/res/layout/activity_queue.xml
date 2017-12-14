@@ -6,6 +6,7 @@
 
     <include layout="@layout/view_main_appbar" />
 
+
     <com.telecorp.dashqueue.custom.CustomSwipeRefreshLayout
         android:id="@+id/swiperefreshlayout_queue"
         android:layout_width="match_parent"

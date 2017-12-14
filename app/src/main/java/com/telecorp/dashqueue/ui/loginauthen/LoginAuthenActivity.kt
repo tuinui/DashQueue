@@ -104,7 +104,7 @@ class LoginAuthenActivity : BaseActivity(), LoginAuthenContract.View, Injectable
     }
 
     override fun showLoadingDataFinish() {
-        Toast.makeText(this, "Finish!!!", Toast.LENGTH_LONG).show()
+//        Toast.makeText(this, "Finish!!!", Toast.LENGTH_LONG).show()
     }
 
     override fun showQueueActivity(data: HospitalItem?, response: LoginAuthenResponseModel?) {

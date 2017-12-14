@@ -6,7 +6,7 @@ import com.telecorp.dashqueue.api.model.HospitalItem
 import com.telecorp.dashqueue.api.model.LoginAuthenRequestModel
 import com.telecorp.dashqueue.api.model.LoginAuthenResponseModel
 import com.telecorp.dashqueue.api.model.TokenRequestModel
-import com.telecorp.dashqueue.ui.queue.recycler.model.HeaderQueueItemEntity
+import com.telecorp.dashqueue.ui.queue.recycler.model.QueueDetailItemEntity
 import com.telecorp.dashqueue.ui.queue.recycler.model.QueueItemEntity
 import com.telecorp.dashqueue.ui.queue.recycler.model.WaitingQueueItemEntity
 import com.telecorp.dashqueue.utils.pref.AppTokenModel
@@ -18,6 +18,7 @@ import com.telecorp.dashqueue.utils.schedulers.BaseSchedulerProvider
  */
 
 class QueueActivityPresenter(val mHospitalData: HospitalItem?, var mLoginAuthenData: LoginAuthenResponseModel?, val mApi: TelecorpApiInterface, val mSchedulerProvider: BaseSchedulerProvider) : QueueActivityContract.Presenter {
+
 
 
     private var mView: QueueActivityContract.View? = null
@@ -51,8 +52,8 @@ class QueueActivityPresenter(val mHospitalData: HospitalItem?, var mLoginAuthenD
                         .observeOn(mSchedulerProvider.ui())
                         .subscribe({ response ->
                             mView?.showLoading(false)
-                            if(response.isSuccess == true){
-                                mView?. openHospitalListActivity()
+                            if (response.isSuccess == true) {
+                                mView?.openHospitalListActivity()
                             }
 
                         }, { throwable ->
@@ -66,6 +67,13 @@ class QueueActivityPresenter(val mHospitalData: HospitalItem?, var mLoginAuthenD
         }
     }
 
+    override fun onQueueListClick() {
+        mView?.showQueueListActivity(mDatas)
+    }
+
+    override fun onProfileClick() {
+        mView?.showProfileActivity()
+    }
     override fun refreshData(deviceName: String, deviceMacAddress: String) {
         mView?.showLoading(true)
         mCurrentDeviceName = deviceName
@@ -75,11 +83,13 @@ class QueueActivityPresenter(val mHospitalData: HospitalItem?, var mLoginAuthenD
                     .observeOn(mSchedulerProvider.ui())
                     .map { response ->
                         mLoginAuthenData = response
-                        parseToQueueEntity(mHospitalData, mLoginAuthenData)
+                        return@map parseToQueueEntity(mHospitalData, mLoginAuthenData)
                     }
                     .subscribe({ datas ->
+                        mDatas.clear()
+                        mDatas.addAll(datas)
                         mView?.showLoading(false)
-                        mView?.bindData(datas)
+                        mView?.bindData(mDatas)
 
                     }, { throwable ->
                         if (null != mView) {
@@ -97,12 +107,13 @@ class QueueActivityPresenter(val mHospitalData: HospitalItem?, var mLoginAuthenD
     }
 
 
-    private fun parseToQueueEntity(hospitalData: HospitalItem?, loginData: LoginAuthenResponseModel?): ArrayList<QueueItemEntity> {
+    private fun parseToQueueEntity(hospitalData: HospitalItem?, loginData: LoginAuthenResponseModel?): List<QueueItemEntity> {
         val datas = ArrayList<QueueItemEntity>()
-        datas.add(HeaderQueueItemEntity(hospitalData, loginData?.waitingQueue))
+        datas.add(QueueDetailItemEntity(hospitalData, loginData?.waitingQueue))
         loginData?.waitingList?.forEach { data -> datas.add(WaitingQueueItemEntity(data)) }
         return datas
     }
+
 
     private fun sendTokenToService() {
         if (null != FirebaseInstanceId.getInstance()?.id && null != MyPreferencesHolder.appTokenModel) {

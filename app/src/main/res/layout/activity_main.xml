@@ -17,33 +17,33 @@
         android:clickable="true"
         android:visibility="gone" />
 
-    <info.hoang8f.android.segmented.SegmentedGroup
-        android:id="@+id/segmentedgroup_main"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="12dp"
-        android:orientation="horizontal"
-        app:sc_tint_color="@color/colorAccent">
+    <!--<info.hoang8f.android.segmented.SegmentedGroup-->
+        <!--android:id="@+id/segmentedgroup_main"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center_horizontal"-->
+        <!--android:layout_margin="12dp"-->
+        <!--android:orientation="horizontal"-->
+        <!--app:sc_tint_color="@color/colorAccent">-->
 
-        <android.support.v7.widget.AppCompatRadioButton
-            android:id="@+id/radiobutton_main_hospital"
-            style="@style/RadioButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:checked="true"
-            android:text="@string/hospital" />
+        <!--<android.support.v7.widget.AppCompatRadioButton-->
+            <!--android:id="@+id/radiobutton_main_hospital"-->
+            <!--style="@style/RadioButton"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1"-->
+            <!--android:checked="true"-->
+            <!--android:text="@string/hospital" />-->
 
-        <android.support.v7.widget.AppCompatRadioButton
-            android:id="@+id/radiobutton_main_yourprofile"
-            style="@style/RadioButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/Your_profile" />
+        <!--<android.support.v7.widget.AppCompatRadioButton-->
+            <!--android:id="@+id/radiobutton_main_yourprofile"-->
+            <!--style="@style/RadioButton"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1"-->
+            <!--android:text="@string/Your_profile" />-->
 
-    </info.hoang8f.android.segmented.SegmentedGroup>
+    <!--</info.hoang8f.android.segmented.SegmentedGroup>-->
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager_main"

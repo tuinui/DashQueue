@@ -5,8 +5,10 @@ import com.telecorp.dashqueue.di.scope.ServiceScope
 import com.telecorp.dashqueue.push.MyFirebaseInstanceIDService
 import com.telecorp.dashqueue.ui.loginauthen.LoginAuthenActivity
 import com.telecorp.dashqueue.ui.main.MainActivity
-import com.telecorp.dashqueue.ui.main.MainActivityModule
+import com.telecorp.dashqueue.ui.main.FragmentBuilderModule
+import com.telecorp.dashqueue.ui.profile.ProfileActivity
 import com.telecorp.dashqueue.ui.queue.QueueActivity
+import com.telecorp.dashqueue.ui.waitingqueue.WatingQueueActivity
 
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -21,12 +23,20 @@ import dagger.android.ContributesAndroidInjector
 @Module
 abstract class ContributesBindingModule {
     @ActivityScope
-    @ContributesAndroidInjector(modules = arrayOf(MainActivityModule::class))
+    @ContributesAndroidInjector(modules = arrayOf(FragmentBuilderModule::class))
     abstract fun provideMainActivity(): MainActivity
 
     @ActivityScope
     @ContributesAndroidInjector
     abstract fun provideLoginAuthenActivity(): LoginAuthenActivity
+
+    @ActivityScope
+    @ContributesAndroidInjector(modules = arrayOf(FragmentBuilderModule::class))
+    abstract fun provideProfileActivity(): ProfileActivity
+
+    @ActivityScope
+    @ContributesAndroidInjector
+    abstract fun provideWatingQueueActivity(): WatingQueueActivity
 
     @ServiceScope
     @ContributesAndroidInjector

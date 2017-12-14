@@ -91,7 +91,7 @@ class HospitalListFragment : BaseFragment(), HospitalListContract.View, Injectab
     }
 
     override fun showLoadingDataFinish() {
-        Toast.makeText(context, "Finish!", Toast.LENGTH_LONG).show()
+//        Toast.makeText(context, "Finish!", Toast.LENGTH_LONG).show()
     }
 
 

@@ -13,18 +13,22 @@ class QueueActivityContract {
     interface View : BaseView {
         fun showLoading(loading: Boolean)
 
-        fun bindData(items: ArrayList<QueueItemEntity>)
+        fun bindData(items: List<QueueItemEntity>)
 
         fun showErrorNetwork(error: String)
 
         fun showLoadingDataFinish()
         fun openHospitalListActivity()
+        fun showProfileActivity()
+        fun showQueueListActivity(filter: List<QueueItemEntity>)
     }
 
 
     interface Presenter : BasePresenter<View> {
         fun refreshData(deviceName: String, deviceMacAddress: String)
         fun requestLogout()
+        fun onQueueListClick()
+        fun onProfileClick()
     }
 }
 

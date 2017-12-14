@@ -1,12 +1,15 @@
 package com.telecorp.dashqueue.ui.main.yourprofile
 
 import android.annotation.SuppressLint
+import android.os.Build
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import android.support.annotation.RequiresApi
 import android.support.v4.widget.SwipeRefreshLayout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebChromeClient
+import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Toast
@@ -15,6 +18,7 @@ import com.telecorp.dashqueue.api.TelecorpApiInterface
 import com.telecorp.dashqueue.api.model.ProfileRequestModel
 import com.telecorp.dashqueue.base.BaseFragment
 import com.telecorp.dashqueue.di.Injectable
+import com.telecorp.dashqueue.utils.UrlWrapperUtils
 import com.telecorp.dashqueue.utils.pref.MyPreferencesHolder
 import com.telecorp.dashqueue.utils.schedulers.BaseSchedulerProvider
 import kotlinx.android.synthetic.main.fragment_your_profile.*
@@ -38,7 +42,7 @@ class YourProfileFragment : BaseFragment(), Injectable {
     lateinit var mSchedulerProvider: BaseSchedulerProvider
 
     companion object {
-        fun newInstance(): Fragment {
+        fun newInstance(): YourProfileFragment {
             return YourProfileFragment()
         }
     }
@@ -64,7 +68,7 @@ class YourProfileFragment : BaseFragment(), Injectable {
                 .observeOn(mSchedulerProvider.ui())
                 .subscribe({ data ->
                     mSwipeRefreshLayout.isRefreshing = false
-                    mUrl = "https://www.set.or.th"
+                    mUrl = UrlWrapperUtils.getAvailableUrl(data.pageUrl)
                     mWebView?.loadUrl(mUrl)
                 }, { throwable ->
                     mSwipeRefreshLayout.isRefreshing = false
@@ -118,6 +122,14 @@ class YourProfileFragment : BaseFragment(), Injectable {
         super.onDestroy()
     }
 
+    fun onConsumeBackPressed(): Boolean {
+        return if (mWebView?.canGoBack() == true) {
+            mWebView?.goBack()
+            true
+        } else {
+            false
+        }
+    }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -128,9 +140,34 @@ class YourProfileFragment : BaseFragment(), Injectable {
 
     @SuppressLint("SetJavaScriptEnabled")
     private fun initWebView() {
-        mWebView?.webViewClient = WebViewClient() // forces it to open in app
+
         val settings = mWebView?.settings
         settings?.javaScriptEnabled = true
+        settings?.useWideViewPort = true
+        settings?.loadWithOverviewMode = true
+
+        mWebView?.webViewClient = object : WebViewClient() {
+            @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+            override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
+                mSwipeRefreshLayout.isRefreshing = true
+                view?.loadUrl(request?.url?.toString())
+                return true
+            }
+
+            override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
+                mSwipeRefreshLayout.isRefreshing = true
+                view?.loadUrl(url)
+
+                return true
+            }
+
+            override fun onPageFinished(view: WebView?, url: String?) {
+                super.onPageFinished(view, url)
+                mSwipeRefreshLayout.isRefreshing = false
+            }
+        } // forces it to open in app
+        mWebView?.webChromeClient = WebChromeClient()
+
         refreshData()
 
     }

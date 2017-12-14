@@ -19,10 +19,13 @@ import com.telecorp.dashqueue.api.model.LoginAuthenResponseModel
 import com.telecorp.dashqueue.base.BaseActivity
 import com.telecorp.dashqueue.di.Injectable
 import com.telecorp.dashqueue.ui.main.MainActivity
+import com.telecorp.dashqueue.ui.profile.ProfileActivityStarter
 import com.telecorp.dashqueue.ui.queue.contract.QueueActivityContract
 import com.telecorp.dashqueue.ui.queue.contract.QueueActivityPresenter
+import com.telecorp.dashqueue.ui.queue.recycler.QueueDetailClickListener
 import com.telecorp.dashqueue.ui.queue.recycler.QueueRecyclerAdapter
 import com.telecorp.dashqueue.ui.queue.recycler.model.QueueItemEntity
+import com.telecorp.dashqueue.ui.waitingqueue.WatingQueueActivityStarter
 import com.telecorp.dashqueue.utils.getDeviceImei
 import com.telecorp.dashqueue.utils.getDeviceModelName
 import com.telecorp.dashqueue.utils.pref.MyPreferencesHolder
@@ -62,7 +65,15 @@ class QueueActivity : BaseActivity(), Toolbar.OnMenuItemClickListener, Injectabl
         LinearLayoutManager(this)
     }
     private val mAdapter: QueueRecyclerAdapter by lazy {
-        QueueRecyclerAdapter()
+        QueueRecyclerAdapter(object : QueueDetailClickListener {
+            override fun onQueueListClick() {
+                mPresenter.onQueueListClick()
+            }
+
+            override fun onProfileClick() {
+                mPresenter.onProfileClick()
+            }
+        })
     }
 
 
@@ -103,11 +114,11 @@ class QueueActivity : BaseActivity(), Toolbar.OnMenuItemClickListener, Injectabl
     }
 
     override fun showLoadingDataFinish() {
-        Toast.makeText(this, "finish", Toast.LENGTH_LONG).show()
+
     }
 
-    override fun bindData(items: ArrayList<QueueItemEntity>) {
-        mAdapter.replaceData(items)
+    override fun bindData(items: List<QueueItemEntity>) {
+        mAdapter.replaceData(items.filter { data -> data.itemViewType == QueueItemEntity.HEADER })
     }
 
     private fun initRecyclerView() {
@@ -121,6 +132,13 @@ class QueueActivity : BaseActivity(), Toolbar.OnMenuItemClickListener, Injectabl
         mToolbar.setOnMenuItemClickListener(this)
     }
 
+    override fun showProfileActivity() {
+        ProfileActivityStarter.start(this)
+    }
+
+    override fun showQueueListActivity(filter: List<QueueItemEntity>) {
+        WatingQueueActivityStarter.start(this, mHospitalData, mLoginAuthenData)
+    }
 
     private fun showConfirmLogout() {
         AlertDialog.Builder(this)
@@ -134,7 +152,6 @@ class QueueActivity : BaseActivity(), Toolbar.OnMenuItemClickListener, Injectabl
                     dialog.dismiss()
                 }).create().show()
     }
-
 
 
     override fun openHospitalListActivity() {
