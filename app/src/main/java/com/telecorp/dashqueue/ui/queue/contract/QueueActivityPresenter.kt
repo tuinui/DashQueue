@@ -116,9 +116,9 @@ class QueueActivityPresenter(val mHospitalData: HospitalItem?, var mLoginAuthenD
 
 
     private fun sendTokenToService() {
-        if (null != FirebaseInstanceId.getInstance()?.id && null != MyPreferencesHolder.appTokenModel) {
+        if (null != FirebaseInstanceId.getInstance()?.token && null != MyPreferencesHolder.appTokenModel) {
             MyPreferencesHolder.appTokenModel?.apply {
-                mApi.postRegisterToken(TokenRequestModel(queueNumber, phoneNumber, FirebaseInstanceId.getInstance().id, hospitalItem?.uid)).subscribeOn(mSchedulerProvider.io())
+                mApi.postRegisterToken(TokenRequestModel(queueNumber, phoneNumber, FirebaseInstanceId.getInstance().token, hospitalItem?.uid)).subscribeOn(mSchedulerProvider.io())
                         .observeOn(mSchedulerProvider.ui())
                         .subscribe({
                             if (null != mView) {
