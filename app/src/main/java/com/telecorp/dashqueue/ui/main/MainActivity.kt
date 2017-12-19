@@ -1,5 +1,6 @@
 package com.telecorp.dashqueue.ui.main
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v4.app.Fragment
@@ -30,7 +31,7 @@ class MainActivity : BaseActivity(), Injectable, HasSupportFragmentInjector {
     private val mToolbar: Toolbar by lazy {
         toolbar_main
     }
-//    private val mSegmentedGroup: SegmentedGroup by lazy {
+    //    private val mSegmentedGroup: SegmentedGroup by lazy {
 //        segmentedgroup_main
 //    }
 //    private val mRadioHospital: AppCompatRadioButton by lazy {
@@ -97,12 +98,13 @@ class MainActivity : BaseActivity(), Injectable, HasSupportFragmentInjector {
         mViewPager.adapter = GenericFragmentPagerAdapter(supportFragmentManager, mContentFragments)
     }
 
+    @SuppressLint("SetTextI18n")
     private fun initView() {
 //        mSegmentedGroup.setOnCheckedChangeListener(mToggleListener)
         if (BuildConfig.DEBUG) {
-            mTextViewFcmToken.text = "Firebase tokoen is " + FirebaseInstanceId.getInstance().token
+            mTextViewFcmToken.text = "Firebase token is " + FirebaseInstanceId.getInstance().token
             mTextViewFcmToken.setOnClickListener { FirebaseInstanceId.getInstance().token?.let { it1 -> copyTextToClipboard("firebasetoken", it1) } }
-            mTextViewFcmToken.visibility = View.GONE
+            mTextViewFcmToken.visibility = View.VISIBLE
         } else {
             mTextViewFcmToken.visibility = View.GONE
         }

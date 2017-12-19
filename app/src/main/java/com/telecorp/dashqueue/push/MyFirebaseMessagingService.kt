@@ -25,9 +25,11 @@ import android.content.Context
 import android.content.Intent
 import android.media.RingtoneManager
 import android.support.v4.app.NotificationCompat
+import android.text.TextUtils
 import android.util.Log
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import com.google.gson.Gson
 import com.telecorp.dashqueue.R
 import com.telecorp.dashqueue.ui.main.MainActivity
 
@@ -43,6 +45,14 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
         remoteMessage?.data?.let {
             if (it.isNotEmpty()) {
+                //{to=/topics/foo-bar, data={"type":"center","message":"ccc"}}
+                val jsonString = it.getOrDefault("data", "")
+                if (!TextUtils.isEmpty(jsonString)) {
+                    val gson = Gson()
+                    val pushGson = gson.fromJson<PushGson>(jsonString, PushGson::class.java)
+                    sendNotification(pushGson)
+                }
+
                 Log.d(TAG, "Message waiting payload: " + it.toString())
 //                sendNotification("Test : " + remoteMessage.data.toString())
             }
@@ -55,6 +65,28 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         }
 
 
+    }
+
+    private fun sendNotification(data: PushGson?) {
+        data?.let {
+            val intent = Intent(this, MainActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            val pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
+                    PendingIntent.FLAG_ONE_SHOT)
+
+            val channelId = getString(R.string.default_notification_channel_id)
+            val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+            val notificationBuilder = NotificationCompat.Builder(this, channelId)
+                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setContentTitle(getString(R.string.app_name_dashqueue))
+                    .setContentText(it.message)
+                    .setAutoCancel(true)
+                    .setSound(defaultSoundUri)
+                    .setContentIntent(pendingIntent)
+
+            val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.notify(it.hashCode(), notificationBuilder.build())
+        }
     }
 //    /**
 //     * Handle time allotted to BroadcastReceivers.

@@ -5,7 +5,10 @@ import android.app.ProgressDialog
 import android.content.Context
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
+import com.google.firebase.iid.FirebaseInstanceId
 import com.telecorp.dashqueue.R
+import com.telecorp.dashqueue.push.MyFirebaseInstanceIDService
 
 /**
  * Created by Saran on 1/11/2560.
@@ -15,8 +18,10 @@ open class BaseActivity : AppCompatActivity() {
 
     private var mProgressDialog: ProgressDialog? = null
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.d("BaseActivity", "Refreshed token: " + FirebaseInstanceId.getInstance()?.token)
         ActivityStarter.fill(this)
     }
 
