@@ -67,17 +67,17 @@ class QueueActivity : BaseActivity(), Toolbar.OnMenuItemClickListener, Injectabl
     private val mAdapter: QueueRecyclerAdapter by lazy {
         QueueRecyclerAdapter(object : QueueDetailClickListener {
             override fun onQueueListClick() {
-                mPresenter.onQueueListClick()
+                mPresenter?.onQueueListClick()
             }
 
             override fun onProfileClick() {
-                mPresenter.onProfileClick()
+                mPresenter?.onProfileClick()
             }
         })
     }
 
 
-    private lateinit var mPresenter: QueueActivityPresenter
+    private  var mPresenter: QueueActivityPresenter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -91,17 +91,21 @@ class QueueActivity : BaseActivity(), Toolbar.OnMenuItemClickListener, Injectabl
 
     override fun onResume() {
         super.onResume()
-        mPresenter.subscribe(this)
+        mPresenter?.subscribe(this)
+        refreshData()
     }
 
     override fun onPause() {
         super.onPause()
-        mPresenter.unsubscribe()
+        mPresenter?.unsubscribe()
     }
 
     private fun initView() {
+        mSwipeRefreshLayout.setOnRefreshListener { refreshData() }
+    }
 
-        mSwipeRefreshLayout.setOnRefreshListener { mPresenter.refreshData(getDeviceModelName(), getDeviceImei()) }
+    private fun refreshData(){
+        mPresenter?.refreshData(getDeviceModelName(), getDeviceImei())
     }
 
 
@@ -146,7 +150,7 @@ class QueueActivity : BaseActivity(), Toolbar.OnMenuItemClickListener, Injectabl
                 .setMessage(R.string.Are_you_sure_you_want_to_stop_receiving_notification)
                 .setPositiveButton(R.string.Confirm) { dialog, which ->
 
-                    mPresenter.requestLogout()
+                    mPresenter?.requestLogout()
                 }
                 .setNegativeButton(R.string.Cancel, { dialog, which ->
                     dialog.dismiss()

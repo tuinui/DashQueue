@@ -59,8 +59,12 @@ class LoginAuthenPresenter(private val mData: HospitalItem?, private val mApi: T
                     }
                 }) {
                     if (null != mView) {
-                        MyPreferencesHolder.appTokenModel = AppTokenModel(queueNumber, phoneNumber, mData)
-                        sendTokenToService()
+                        if (mAuthenResponse?.patientQueueArrayList?.isEmpty() == false) {
+                            MyPreferencesHolder.appTokenModel = AppTokenModel(queueNumber, phoneNumber, mData)
+                            sendTokenToService()
+                        } else {
+                            mView?.showErrorNetwork("No data")
+                        }
                     }
                 }
     }
@@ -68,7 +72,7 @@ class LoginAuthenPresenter(private val mData: HospitalItem?, private val mApi: T
     private fun sendTokenToService() {
         if (null != FirebaseInstanceId.getInstance()?.token && null != MyPreferencesHolder.appTokenModel) {
             MyPreferencesHolder.appTokenModel?.apply {
-                mApi.postRegisterToken(TokenRequestModel(queueNumber,phoneNumber,FirebaseInstanceId.getInstance().token , hospitalItem?.uid)).subscribeOn(mSchedulerProvider.io())
+                mApi.postRegisterToken(TokenRequestModel(queueNumber, phoneNumber, FirebaseInstanceId.getInstance().token, hospitalItem?.uid)).subscribeOn(mSchedulerProvider.io())
                         .observeOn(mSchedulerProvider.ui())
                         .subscribe({
                             if (null != mView) {
@@ -82,11 +86,11 @@ class LoginAuthenPresenter(private val mData: HospitalItem?, private val mApi: T
                         }) {
                             if (null != mView) {
                                 mView?.showLoadingDataFinish()
-                                mView?.showQueueActivity(mData,mAuthenResponse)
+                                mView?.showQueueActivity(mData, mAuthenResponse)
                             }
                         }
             }
-        }else{
+        } else {
             mView?.showQueueActivity(mData, mAuthenResponse)
         }
 

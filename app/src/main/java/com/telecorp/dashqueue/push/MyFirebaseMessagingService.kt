@@ -44,9 +44,9 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     override fun onMessageReceived(remoteMessage: RemoteMessage?) {
 
         remoteMessage?.data?.let {
-            if (it.isNotEmpty()) {
+            if (it.isNotEmpty() && it.containsKey("data")) {
                 //{to=/topics/foo-bar, data={"type":"center","message":"ccc"}}
-                val jsonString = it.getOrDefault("data", "")
+                val jsonString = it["data"]
                 if (!TextUtils.isEmpty(jsonString)) {
                     val gson = Gson()
                     val pushGson = gson.fromJson<PushGson>(jsonString, PushGson::class.java)
