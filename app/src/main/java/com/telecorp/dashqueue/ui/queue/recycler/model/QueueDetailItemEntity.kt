@@ -7,7 +7,7 @@ import com.telecorp.dashqueue.api.model.WaitingQueue
  * Created by Saran on 12/11/2560.
  */
 
-class QueueDetailItemEntity(val hospitalData: HospitalItem?, val watingQueue: WaitingQueue?) : QueueItemEntity {
+class QueueDetailItemEntity(val hospitalData: HospitalItem?, val watingQueue: WaitingQueue?, val lastUpdated: String?) : QueueItemEntity {
 
 
     override val itemViewType: Long

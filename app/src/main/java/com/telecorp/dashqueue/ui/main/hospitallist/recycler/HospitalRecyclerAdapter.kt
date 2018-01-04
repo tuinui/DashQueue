@@ -16,18 +16,7 @@ import kotlinx.android.synthetic.main.view_hospital_item.view.*
  */
 
 class HospitalRecyclerAdapter(val onItemClickListener: GenericOnItemClickListener<HospitalItem>?) : SearchableRecyclerAdapter<HospitalRecyclerAdapter.HospitalItemViewHolder>() {
-//    private val mItems = ArrayList<HospitalItem>()
 
-//    fun replaceDatas(newDatas: List<HospitalItem>) {
-//        mFilteredDatas as
-//        val result = DiffUtil.calculateDiff(
-//                HospitalItemDiffCallback(mFilteredDatas, newDatas), false)
-//        result.dispatchUpdatesTo(this)
-//        mDatas.clear()
-//        mFilteredDatas.clear()
-//        mFilteredDatas.addAll(newDatas)
-//        mDatas.addAll(newDatas)
-//    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HospitalItemViewHolder {
         return HospitalItemViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.view_hospital_item, parent, false))
@@ -38,10 +27,6 @@ class HospitalRecyclerAdapter(val onItemClickListener: GenericOnItemClickListene
             holder.bind(mFilteredDatas[position] as HospitalItem)
         }
     }
-
-//    override fun getItemCount(): Int {
-//        return SafeCollectionUtils.getSize(mItems)
-//    }
 
     inner class HospitalItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 

@@ -35,6 +35,7 @@ class WaitingQueue() : Parcelable {
     @SerializedName("CurrentTime")
     var currentIime: String? = null
 
+
     constructor(parcel: Parcel) : this() {
         uid = parcel.readValue(Long::class.java.classLoader) as? Long
         organizationUID = parcel.readValue(Long::class.java.classLoader) as? Long
@@ -74,6 +75,7 @@ class WaitingQueue() : Parcelable {
             return arrayOfNulls(size)
         }
     }
+
 
 }
 

@@ -48,6 +48,7 @@ class QueueRecyclerAdapter(val mListener: QueueDetailClickListener) : RecyclerVi
         data?.let {
             holder.bindHospitalItem(it.hospitalData)
             holder.bindWaitingQueue(it.watingQueue)
+            holder.bindLastUpdate(it.lastUpdated)
         }
     }
 

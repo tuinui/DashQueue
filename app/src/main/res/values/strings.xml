@@ -13,7 +13,7 @@
     <string name="Logout">Logout</string>
     <string name="Waiting_count">จำนวนคนรอ %1$s คน</string>
     <string name="Your_queue_number_is">หมายเลขของท่านคือ</string>
-    <string name="Last_updated_">Last updated : %1$s </string>
+    <string name="Visit_updated_">Visit date : %1$s </string>
     <string name="Reject_Queue">Reject Queue</string>
     <string name="Are_you_sure_you_want_to_stop_receiving_notification">Are you sure you want to stop receiving notification?</string>
     <string name="Confirm">Confirm</string>

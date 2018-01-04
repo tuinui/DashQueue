@@ -25,7 +25,7 @@ class QueueHeaderViewHolder(v: View, val mListener: QueueDetailClickListener) : 
     private val btnQueueList = v.button_queue_detail_queue_list
     private val btnProfile = v.button_queue_detail_profile
     private val LLast_updated_: String  by lazy {
-        itemView.context.getString(R.string.Last_updated_)
+        itemView.context.getString(R.string.Visit_updated_)
     }
     private val LWaiting_count: String by lazy {
         itemView.context.getString(R.string.Waiting_count)
@@ -38,7 +38,7 @@ class QueueHeaderViewHolder(v: View, val mListener: QueueDetailClickListener) : 
 
     fun bindWaitingQueue(data: WaitingQueue?) {
         data?.apply {
-            tvLastUpdated.text = String.format(Locale.getDefault(), LLast_updated_, DateParseUtils.relativeParseDateTime(itemView.context, cWhen))
+            tvLastUpdated.text = String.format(Locale.getDefault(), LLast_updated_, DateParseUtils.parseDateString(cWhen,DateParseUtils.DATE_TIME_PATTERN_dd_MM_YYYY))
             tvDoctorName.text = doctorName
             tvQueueNumber.text = queueNo
             tvDepartment.text = locationQueueName
@@ -58,6 +58,12 @@ class QueueHeaderViewHolder(v: View, val mListener: QueueDetailClickListener) : 
                 btnQueueList.id -> mListener.onQueueListClick()
                 btnProfile.id -> mListener.onProfileClick()
             }
+        }
+    }
+
+    fun bindLastUpdate(lastUpdated: String?) {
+        lastUpdated?.let {
+            tvLastUpdated.text = String.format(Locale.getDefault(), LLast_updated_, DateParseUtils.parseDateString(it,DateParseUtils.DATE_TIME_PATTERN_dd_MM_YYYY))
         }
     }
 

@@ -77,8 +77,15 @@
         android:id="@+id/textview_queue_detail_last_updated_at"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="4dp"
-        tools:text="Last update 2017" />
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:ellipsize="end"
+        android:maxLines="4"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="@android:color/black"
+        android:textStyle="bold"
+        tools:text="@tools:sample/lorem/random" />
 
 
     <android.support.v7.widget.AppCompatButton

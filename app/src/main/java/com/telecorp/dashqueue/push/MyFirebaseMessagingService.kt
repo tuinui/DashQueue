@@ -32,6 +32,7 @@ import com.google.firebase.messaging.RemoteMessage
 import com.google.gson.Gson
 import com.telecorp.dashqueue.R
 import com.telecorp.dashqueue.ui.main.MainActivity
+import com.telecorp.dashqueue.ui.main.MainActivityStarter
 
 class MyFirebaseMessagingService : FirebaseMessagingService() {
 
@@ -69,7 +70,8 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
     private fun sendNotification(data: PushGson?) {
         data?.let {
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = MainActivityStarter.getIntent(this,true)
+
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             val pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
                     PendingIntent.FLAG_ONE_SHOT)

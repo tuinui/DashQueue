@@ -50,7 +50,8 @@ class QueueActivity : BaseActivity(), Toolbar.OnMenuItemClickListener, Injectabl
     var mHospitalData: HospitalItem? by argExtra()
     @get:Arg(optional = true)
     var mLoginAuthenData: LoginAuthenResponseModel? by argExtra()
-
+    @get:Arg(optional = true)
+    var mFromNotification: Boolean? by argExtra()
 
     private val mSwipeRefreshLayout: SwipeRefreshLayout by lazy {
         swiperefreshlayout_queue
@@ -77,7 +78,7 @@ class QueueActivity : BaseActivity(), Toolbar.OnMenuItemClickListener, Injectabl
     }
 
 
-    private  var mPresenter: QueueActivityPresenter? = null
+    private var mPresenter: QueueActivityPresenter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -104,7 +105,7 @@ class QueueActivity : BaseActivity(), Toolbar.OnMenuItemClickListener, Injectabl
         mSwipeRefreshLayout.setOnRefreshListener { refreshData() }
     }
 
-    private fun refreshData(){
+    private fun refreshData() {
         mPresenter?.refreshData(getDeviceModelName(), getDeviceImei())
     }
 
@@ -121,8 +122,16 @@ class QueueActivity : BaseActivity(), Toolbar.OnMenuItemClickListener, Injectabl
 
     }
 
+    private var mAlreadyNavigateToQueueList = false
+
     override fun bindData(items: List<QueueItemEntity>) {
         mAdapter.replaceData(items.filter { data -> data.itemViewType == QueueItemEntity.HEADER })
+        items.isNotEmpty().let {
+            if (!mAlreadyNavigateToQueueList && mFromNotification == true) {
+                mAlreadyNavigateToQueueList = true
+                mPresenter?.onQueueListClick()
+            }
+        }
     }
 
     private fun initRecyclerView() {

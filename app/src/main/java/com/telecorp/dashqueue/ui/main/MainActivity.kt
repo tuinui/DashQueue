@@ -1,5 +1,6 @@
 package com.telecorp.dashqueue.ui.main
 
+import activitystarter.Arg
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
@@ -10,6 +11,7 @@ import android.view.View
 import android.widget.TextView
 import butterknife.ButterKnife
 import com.google.firebase.iid.FirebaseInstanceId
+import com.marcinmoskala.activitystarter.argExtra
 import com.telecorp.dashqueue.BuildConfig
 import com.telecorp.dashqueue.R
 import com.telecorp.dashqueue.base.BaseActivity
@@ -31,33 +33,16 @@ class MainActivity : BaseActivity(), Injectable, HasSupportFragmentInjector {
     private val mToolbar: Toolbar by lazy {
         toolbar_main
     }
-    //    private val mSegmentedGroup: SegmentedGroup by lazy {
-//        segmentedgroup_main
-//    }
-//    private val mRadioHospital: AppCompatRadioButton by lazy {
-//        radiobutton_main_hospital
-//    }
-//    private val mRadioYourProfile: AppCompatRadioButton by lazy {
-//        radiobutton_main_yourprofile
-//    }
     private val mTextViewFcmToken: TextView by lazy {
         textview_main_fcm_token
     }
     @Inject
     lateinit var mDispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
+    @get:Arg(optional = true)
+    var mFromNotification: Boolean? by argExtra()
     val mViewPager: ViewPager by lazy { viewpager_main }
     private val mContentFragments = ArrayList<Fragment>()
     private val mHospitalListFragment = HospitalListFragment.newInstance()
-//    private val mYourProfileFragment = YourProfileFragment.newInstance()
-
-//    private val mToggleListener = RadioGroup.OnCheckedChangeListener { group, checkedId ->
-//        if (checkedId == mRadioHospital.id) {
-//            mViewPager.setCurrentItem(0, true)
-//        } else if (checkedId == mRadioYourProfile.id) {
-//            mViewPager.setCurrentItem(1, true)
-//        }
-//    }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,7 +63,7 @@ class MainActivity : BaseActivity(), Injectable, HasSupportFragmentInjector {
     private fun checkIfAlreadyLogin(): Boolean {
 
         MyPreferencesHolder.appTokenModel?.let {
-            QueueActivityStarter.start(this, it.hospitalItem)
+            QueueActivityStarter.start(this, it.hospitalItem, mFromNotification)
             ActivityCompat.finishAffinity(this)
             return true
         }

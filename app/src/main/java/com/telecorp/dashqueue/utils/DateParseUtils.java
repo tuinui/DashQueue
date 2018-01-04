@@ -23,7 +23,7 @@ public class DateParseUtils {
     public static final String ISO8601_DATE_TIME_PATTERN_TO_API = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
     public static final String ISO8601_DATE_PATTERN_FROM_API = "yyyy-MM-dd";
     public static final String DATE_TIME_PATTERN_HH_mm = "HH:mm";
-    public static final String DATE_TIME_PATTERN_dd_MM_YYYY = "dd/MM/yyyy";
+    public static final String DATE_TIME_PATTERN_dd_MM_YYYY = "dd/MM/yyyy HH:mm";
 
 
     public static String parseDateString(String dateString, String oldPattern, String newPattern) {

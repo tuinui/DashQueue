@@ -20,7 +20,6 @@ import com.telecorp.dashqueue.utils.schedulers.BaseSchedulerProvider
 class QueueActivityPresenter(val mHospitalData: HospitalItem?, var mLoginAuthenData: LoginAuthenResponseModel?, val mApi: TelecorpApiInterface, val mSchedulerProvider: BaseSchedulerProvider) : QueueActivityContract.Presenter {
 
 
-
     private var mView: QueueActivityContract.View? = null
     private val mDatas = ArrayList<QueueItemEntity>()
     private var mCurrentDeviceName: String? = ""
@@ -74,6 +73,7 @@ class QueueActivityPresenter(val mHospitalData: HospitalItem?, var mLoginAuthenD
     override fun onProfileClick() {
         mView?.showProfileActivity()
     }
+
     override fun refreshData(deviceName: String, deviceMacAddress: String) {
         mView?.showLoading(true)
         mCurrentDeviceName = deviceName
@@ -109,7 +109,7 @@ class QueueActivityPresenter(val mHospitalData: HospitalItem?, var mLoginAuthenD
 
     private fun parseToQueueEntity(hospitalData: HospitalItem?, loginData: LoginAuthenResponseModel?): List<QueueItemEntity> {
         val datas = ArrayList<QueueItemEntity>()
-        datas.add(QueueDetailItemEntity(hospitalData, loginData?.waitingQueue))
+        datas.add(QueueDetailItemEntity(hospitalData, loginData?.waitingQueue, loginData?.patientQueueArrayList?.get(0)?.visitDate))
         loginData?.waitingList?.forEach { data -> datas.add(WaitingQueueItemEntity(data)) }
         return datas
     }
